@@ -2,6 +2,7 @@ Design Phase...
 
 Identify all assets:
 Flask App files (https://github.com/platformps/2020_03_DO_Boston_casestudy_part_1)
+DockerHUB file https://hub.docker.com/r/nmm131/git-ansible-vb-k8-docker-jenkins
 Jenkinsfile
 Dockerfile
 playbook.yaml
