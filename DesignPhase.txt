@@ -6,6 +6,10 @@ Jenkinsfile
 Dockerfile
 playbook.yaml
 kubernetes.yaml
+requirements.txt
+casc.yaml
+plugins.txt
+another Dockerfile
 
 
 Endpoints:
@@ -13,22 +17,30 @@ Flask App (app.py) - 5000
 Flask App Docker Image (Dockerfile) - 5000
 Jenkins - 8080
 Jenkins Docker Image (jenkinsci/blueocean) - 8090:8080
-Todo:
-Ansible
-Kubernetes
+Ansible hosts - VM's IP Address
+Kubernetes containerPort - 5000
+Kubernetes Service port - 5000
+Kubernetes Service targetPort - 5000
+Kubernetes Service nodePort - 32000
 
 
 Tasks:
--
+Install Ansible
+Setup VirtualBox VM
+Install Kubernetes
+Setup Jenkins' configuration using Kubernetes
+Write Dockerfile, Jenkinsfile, playbook.yaml, requirements.txt, kubernetes.yaml, casc.yaml, plugins.txt and another Dockerfile
+Clone git project, make change, update project on SCM
+Record results of pipeline
 
 
 Elements of technical tool stack:
-VirtualBox
 Git
+Ansible
+VirtualBox
+Kubernetes
 Docker
 Jenkins
-Ansible
-Kubernetes
-Todo: AWS
+Reach Goal: AWS (EC2 Free-Tier)
 
-Please view CI-CD-Pipeline.pdf document
+Please view 'CI-CD-Pipeline.jpg' for a visual of the CI/CD Pipeline
