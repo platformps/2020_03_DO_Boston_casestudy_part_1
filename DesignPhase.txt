@@ -1,0 +1,34 @@
+Design Phase...
+
+Identify all assets:
+Flask App files (https://github.com/platformps/2020_03_DO_Boston_casestudy_part_1)
+Jenkinsfile
+Dockerfile
+playbook.yaml
+kubernetes.yaml
+
+
+Endpoints:
+Flask App (app.py) - 5000
+Flask App Docker Image (Dockerfile) - 5000
+Jenkins - 8080
+Jenkins Docker Image (jenkinsci/blueocean) - 8090:8080
+Todo:
+Ansible
+Kubernetes
+
+
+Tasks:
+-
+
+
+Elements of technical tool stack:
+VirtualBox
+Git
+Docker
+Jenkins
+Ansible
+Kubernetes
+Todo: AWS
+
+Please view CI-CD-Pipeline.pdf document
