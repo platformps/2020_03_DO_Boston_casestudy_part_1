@@ -1,5 +1,5 @@
 ---
 - hosts: localhost
-tasks:
+  tasks:
     - name: kubectl apply
       command: kubectl apply -f https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1/blob/main/playbook.yaml
