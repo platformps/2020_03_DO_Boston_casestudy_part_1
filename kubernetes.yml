@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: brown-fox-deployment
+  labels:
+    app: brown-fox
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: sba-kube-cluster
+        image: kbelle/case_study:latest
+        ports:
+        - containerPort: 8080
