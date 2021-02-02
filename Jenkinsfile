@@ -8,13 +8,13 @@ pipeline {
 		DOCKER_HUB_REPO = "nmm131/git-ansible-vb-k8-docker-jenkins"
 	}
 	stages {
-		stage('SCM Checkout') {
-			steps {
-				script {
-					sh 'git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git git-ansible-vb-k8-docker-jenkins'
-				}
-			}
-		}
+		//stage('SCM Checkout') {
+		//	steps {
+		//		script {
+		//			sh 'git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git git-ansible-vb-k8-docker-jenkins'
+		//		}
+		//	}
+		//}
 		stage('Compile-Package-Test') {
 			steps {
 				script {
