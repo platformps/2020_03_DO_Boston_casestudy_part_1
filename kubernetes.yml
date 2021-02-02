@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: flask
+  labels:
+    app: flask-case-study
+    tier: frontend
+spec:
+
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: case-study-part1
+        image: jasonautomation/case_study_part1 
