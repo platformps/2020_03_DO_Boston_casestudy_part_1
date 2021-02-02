@@ -8,21 +8,24 @@ pipeline {
 		DOCKER_HUB_REPO = "nmm131/git-ansible-vb-k8-docker-jenkins"
 	}
 	stages {
-		//stage('Set Up') {
-		//	steps {
-		//		script {
-		//			dir('../') {
-		//				sh 'rm -rf workspace && rm -rf workspace@tmp'
-		//			}
-		//		}
-		//	}
-		//}
 		stage('SCM Checkout') {
 			steps {
 				script {
-					sh 'python3 -m pip install --upgrade pip'
 					sh 'git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git git-ansible-vb-k8-docker-jenkins'
-					sh 'pip install -r ./git-ansible-vb-k8-docker-jenkins/requirements.txt'
+				}
+			}
+		}
+		stage('Compile-Package-Test') {
+			steps {
+				script {
+					//dir('./git-ansible-vb-k8-docker-jenkins') {
+					sh "python app.py"
+					//env is Jenkins build parameter
+					//sh '`gen-hosts-list $env` > /path/to/hosts_list'
+					//sh 'ansible-playbook ./kuberplaybook.yml -i /path/to/hosts_list -u AUTO_USER --private-key=/path/to/private-key'
+					sh 'minikube start'
+					sh 'kubectl apply -f kubernetes.yaml'
+					//}
 				}
 			}
 		}
@@ -43,20 +46,6 @@ pipeline {
 					sh 'docker push $DOCKER_HUB_REPO:latest'
 
 					echo "Image built and pushed to repository"
-				}
-			}
-		}
-		stage('Compile-Package-Test') {
-			steps {
-				script {
-					//dir('./git-ansible-vb-k8-docker-jenkins') {
-					sh "python app.py"
-					//env is Jenkins build parameter
-					//sh '`gen-hosts-list $env` > /path/to/hosts_list'
-					//sh 'ansible-playbook ./kuberplaybook.yml -i /path/to/hosts_list -u AUTO_USER --private-key=/path/to/private-key'
-					sh 'minikube start'
-					sh 'kubectl apply -f kubernetes.yaml'
-					//}
 				}
 			}
 		}
