@@ -1,0 +1,27 @@
+--- 
+- hosts: localhost
+tasks:
+    - name: kubectl apply
+      command: kubectl apply -f 
+    - name: Install LAMP stack
+      become: yes
+      apt: 
+        pkg:
+        - apache2
+        - mysql-client
+        - php7.2
+        state: present
+        update_cache: yes
+
+    - name: Start Apache2 Service
+      become: yes
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Download and Install Composer
+      shell: |
+        php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+        rm composer-setup.php
