@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: ansible-awx
   tasks:
     #- name: install kubernetes
     #  shell: #installation commands go here

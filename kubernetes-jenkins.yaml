@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: git-ansible-vb-k8-docker-jenkins
+  name: jenkins-configured
   labels:
     app: web
 spec:
@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
         - name: front-end
-          image: nmm131/git-ansible-vb-k8-docker-jenkins
+          image: nmm131/jenkins-configured:latest
           ports:
             - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: git-ansible-vb-k8-docker-jenkins-svc
+  name: jenkins-configured-svc
 spec:
   type: NodePort
   selector:
