@@ -6,9 +6,9 @@
       register: output
       
     - name: copy required files
-      shell: mkdir -p ~/.kube
-             sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
-             sudo chown $(id -u):$(id -g) ~/.kube/config
+      shell: mkdir -p $HOME/.kube
+             sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+             sudo chown $(id -u):$(id -g) $HOME/.kube/config
       
     - name: kubectl apply
       command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/playbook.yaml
