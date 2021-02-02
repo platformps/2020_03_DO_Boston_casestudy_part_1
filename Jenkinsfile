@@ -20,11 +20,12 @@ pipeline {
 				script {
 					//dir('./git-ansible-vb-k8-docker-jenkins') {
 					sh "python app.py"
+					// install curl in Dockerfile and test port 5000 with curl, if not working stop pipeline
 					//env is Jenkins build parameter
 					//sh '`gen-hosts-list $env` > /path/to/hosts_list'
 					//sh 'ansible-playbook ./kuberplaybook.yml -i /path/to/hosts_list -u AUTO_USER --private-key=/path/to/private-key'
-					sh 'minikube start'
-					sh 'kubectl apply -f kubernetes.yaml'
+					//sh 'minikube start'
+					//sh 'kubectl apply -f kubernetes.yaml'
 					//}
 				}
 			}
@@ -46,6 +47,13 @@ pipeline {
 					sh 'docker push $DOCKER_HUB_REPO:latest'
 
 					echo "Image built and pushed to repository"
+				}
+			}
+		}
+		stage('Deploy') {
+			steps {
+				script {
+					ansible-playbook playbook-app.yaml
 				}
 			}
 		}

@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  tasks:
+    #- name: install kubernetes
+    #  shell: #installation commands go here
+    - name: initialize kubernetes cluster
+      shell: minikube start
+      register: output
+      
+    
+      
+    - name: kubectl apply
+      command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-jenkins.yaml
