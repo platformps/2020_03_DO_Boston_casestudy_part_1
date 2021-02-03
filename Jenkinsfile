@@ -9,7 +9,7 @@ pipeline{
 		}
 		stage('Build'){
 			steps{
-				sh 'docker image build -t kg0529/flask'
+				sh 'docker image build -t kg0529/flask .'
 			}
 		}
 		stage('Push'){
