@@ -50,12 +50,12 @@ pipeline {
 				}
 			}
 		}
-		stage('Deploy') {
-			steps {
-				script {
-					ansible-playbook playbook-app.yaml
-				}
-			}
-		}
+		//stage('Deploy') {
+		//	steps {
+		//		script {
+		//			ansible-playbook playbook-app.yaml
+		//		}
+		//	}
+		//}
 	}
 }
