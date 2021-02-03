@@ -1,7 +1,7 @@
 ---
 - hosts: servers
 
-  collection:
+  collections:
      - community.kubernetes
 
   tasks:
