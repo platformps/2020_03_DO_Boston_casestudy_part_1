@@ -14,7 +14,7 @@ pipeline{
 		}
 		stage('Push'){
 			steps{
-				withDockerRegistry([ credientialsID: "dockerhub"]){
+				withDockerRegistry([ '', "dockerhub"]){
 				sh 'docker push kg0529/flask'
 				}
 			}
