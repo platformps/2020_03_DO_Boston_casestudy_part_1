@@ -7,7 +7,5 @@
       shell: minikube start
       register: output
       
-    
-      
     - name: kubectl apply
-      command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-jenkins.yaml
+      command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-app.yaml

@@ -3,15 +3,26 @@
   tasks:
     #- name: install kubernetes
     #  shell: #installation commands go here
-    - name: initialize kubernetes cluster
-      shell: minikube start
-      register: output
       
-    - name: Copying required files
+    - name: Copy required kubernetes files
       shell: |
        mkdir -p $HOME/.kube
        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
        sudo chown $(id -u):$(id -g) $HOME/.kube/config
+       
+    - name: Initialize kubernetes cluster
+      shell: minikube start
+      register: output
+    - name: Clone repository if does not exist
+      shell: |
+        if [ ! -d "~/2020_03_DO_Boston_casestudy_part_1/" ]
+            then
+            git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
+        else
+            dir('~/2020_03_DO_Boston_casestudy_part_1/') {
+                git pull
+            }
+        fi
       
-    - name: kubectl apply
+    - name: Apply kubernetes.yaml to cluster
       command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-jenkins.yaml

@@ -15,7 +15,7 @@ spec:
         app: web
     spec:
       containers:
-        - name: front-end
+        - name: jenkins
           image: nmm131/jenkins-configured:latest
           ports:
             - containerPort: 8080
