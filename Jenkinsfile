@@ -1,6 +1,10 @@
 pipeline{
 	agent any
 	
+	enviroment{
+		REGISTRY_CREDENTIAL = "dockerhub"
+	}
+
 	stages{
 		stage('check-out'){
 			steps{
@@ -15,7 +19,7 @@ pipeline{
 		}
 		stage('Push'){
 			steps{
-				withDockerRegistry([ '', "dockerhub"]){
+				withDockerRegistry( '', GRGISTRY_CREDENTIAL ){
 				sh 'docker push kg0529/flask'
 				}
 			}
