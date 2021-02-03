@@ -1,0 +1,11 @@
+- hosts: all
+  tasks:
+  - name: copy deployment file to kubernetes master
+    copy:
+      src: kubernetes.yml
+      dest: /root/
+  - name: delete previous kubernetes deployment
+    command: kubectl delete -f /root/kubernetes.yml
+  - name: create deployment
+    command: kubectl apply -f /root/kubernetes.yml
+  
