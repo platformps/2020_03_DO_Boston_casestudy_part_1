@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fox-run-deployment
+  name: flask-deployment
 spec:
   replicas: 3 #run 3 pods 
   selector:
     matchLabels:
-      app: fox-run-app
+      app: flask-app
   template:
     metadata:
       labels:
-        app: fox-run-app
+        app: flask-app
     spec:
       containers:
-      - name: fox-run-container
+      - name: flask-container
         image: kg0529/flask
         ports:
         - containerPort: 9090
@@ -21,11 +21,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fox-run-service
+  name: flask-service
 spec:
   type: NodePort
   selector:
-    app: fox-run-app
+    app: flask-app
   ports:
   - protocol: TCP
     port: 9090
