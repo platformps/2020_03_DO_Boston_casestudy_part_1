@@ -2,6 +2,7 @@ pipeline{
 	agent any	
 	environment {
 		REGISTRY_CREDENTIAL = "dockerhub"
+		DOCKER_HUB_REPO = "jasonautomation/case-study-part1"
 	}
 	stages{
 		stage('check-out'){
@@ -12,7 +13,7 @@ pipeline{
 		}
 		stage('Build'){
 			steps{
-				sh 'docker image build -t jasonautomation/case-study-part1 .'
+				sh 'docker image build -t $DOCKER_HUB_REPO:latest .'
 			}
 		}
 		stage('Push'){
