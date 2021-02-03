@@ -19,7 +19,7 @@ pipeline{
 		}
 		stage('Push'){
 			steps{
-				withDockerRegistry( '', GRGISTRY_CREDENTIAL ){
+				withDockerRegistry( '', REGISTRY_CREDENTIAL ){
 				sh 'docker push kg0529/flask'
 				}
 			}
