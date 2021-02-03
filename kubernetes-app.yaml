@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-docker-jenkins-ansible-k8
+  name: git-ansible-vb-k8-docker-jenkins
   labels:
     app: app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: app
@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
         - name: front-end
-          image: nmm131/flask-docker-jenkins-ansible-k8:latest
+          image: git-ansible-vb-k8-docker-jenkins:latest
           ports:
             - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-docker-jenkins-ansible-k8-svc
+  name: git-ansible-vb-k8-docker-jenkins-svc
 spec:
   type: NodePort
   selector:
