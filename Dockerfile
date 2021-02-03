@@ -1,8 +1,6 @@
-FROM ubuntu
-
-RUN apt-get update
-RUN apt-get install -y python3 python3-pip
-RUN pip3 install flask
-
-COPY . .
-CMD ["python","./web.py"]
+FROM python:latest
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+RUN pip install -r requirements.txt
+EXPOSE 8082
+CMD ["python", "web.py"]
