@@ -26,7 +26,7 @@ pipeline{
 		}
 		stage('Deploy'){
 			steps{
-				sh 'echo  "Ansible commands"'
+				sh 'echo  "Ansible commands will be here"'
 			}
 		}
 	}
