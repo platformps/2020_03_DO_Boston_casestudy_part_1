@@ -12,4 +12,4 @@
        shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
 
      - name: deploy flask-application
-       shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
+       command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
