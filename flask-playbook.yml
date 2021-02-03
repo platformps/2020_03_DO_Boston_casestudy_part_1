@@ -1,5 +1,9 @@
 ---
 - hosts: servers
+
+  collection:
+     - community.kubernetes
+
   tasks:
      - name: start up kubernetes cluster
        shell: minikube start
