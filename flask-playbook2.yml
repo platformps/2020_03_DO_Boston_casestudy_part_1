@@ -1,5 +1,5 @@
 ---
-- hosts:localhost
+- hosts: localhost
 
   tasks:
      - name: remove existing repository on host
