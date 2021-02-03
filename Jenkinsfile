@@ -1,10 +1,8 @@
 pipeline{
-	agent any
-	
-	enviroment{
+	agent any	
+	enviroment {
 		REGISTRY_CREDENTIAL = "dockerhub"
 	}
-
 	stages{
 		stage('check-out'){
 			steps{
