@@ -13,4 +13,4 @@
        shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
 
      - name: build
-       shell: docker image build kg0529/flask .
+       shell: docker image build -t kg0529/flask .
