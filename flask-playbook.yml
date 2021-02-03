@@ -23,4 +23,7 @@
 
 
      - name: deploy flask-application
-       shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
+       shell: |
+          kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
+       environment:
+          KUBECONFIG: /home/server/.kube/config
