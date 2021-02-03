@@ -15,12 +15,5 @@
      - name: pull repository
        shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
 
-     #- name: set up environment
-     #  shell: |
-     #     mkdir -p $HOME/.kube
-     #     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-     #     sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-
      - name: deploy flask-application
        shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
