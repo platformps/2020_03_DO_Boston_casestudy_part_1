@@ -5,8 +5,10 @@
        shell: minikube start
        register: output
 
-     - name: pull repository
+     - name: remove existing repository
        shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
+
+     - name: pull repository
        shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
 
      - name: deploy flask-application
