@@ -27,7 +27,7 @@ pipeline{
 		stage('Deploy'){
 			steps{
 				script {
-					ansible-playbook flask-playbook.yml
+					sh 'ansible-playbook flask-playbook.yml'
 				}
 			}
 		}
