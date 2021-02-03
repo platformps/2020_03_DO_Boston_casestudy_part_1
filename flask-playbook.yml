@@ -1,0 +1,13 @@
+---
+- hosts: servers
+  tasks:
+       - name: start up kubernetes cluster
+         shell: minikube start
+         regeister: output
+
+       - name: pull repository
+         shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
+         shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
+
+       - name: deploy flask-application
+         command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
