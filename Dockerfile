@@ -1,6 +1,9 @@
-FROM python:latest
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+FROM python:3.7-alpine
+WORKDIR /code
+ENV FLASK_APP app.py
+ENV FLASK_RUN_HOST 0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-EXPOSE 8082
-CMD ["python", "web.py"]
+COPY . .
+CMD ["flask", "run"]
