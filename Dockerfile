@@ -1,3 +1,4 @@
+# use base image
 FROM python:3.7-alpine
 
 # set app directory

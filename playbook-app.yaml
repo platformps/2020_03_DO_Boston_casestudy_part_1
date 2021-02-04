@@ -1,11 +1,14 @@
 ---
+# run on Master VM
 - hosts: ansible-awx
   tasks:
     #- name: install kubernetes
     #  shell: #installation commands go here
     - name: initialize kubernetes cluster
+      # start kubernetes cluster
       shell: minikube start
       register: output
       
     - name: kubectl apply
+      # apply a configuration change to application resource from a file
       command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-app.yaml

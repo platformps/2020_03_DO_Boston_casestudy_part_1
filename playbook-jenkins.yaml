@@ -1,19 +1,25 @@
 ---
+# run on localhost instead of Client VMs
 - hosts: localhost
   tasks:
     #- name: install kubernetes
     #  shell: #installation commands go here
       
     - name: Copy required kubernetes files
+      # if .kube directory does not exist, create it and copy kubernetes admin configuration to it
+      # then set ownership of kubernetes admin config file needed to run kubernetes
       shell: |
        mkdir -p $HOME/.kube
        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
        sudo chown $(id -u):$(id -g) $HOME/.kube/config
        
     - name: Initialize kubernetes cluster
+      # start kubernetes cluster
       shell: minikube start
       register: output
     - name: Clone repository if does not exist
+      # if git project does not exist, clone it
+      # otherwise update project from SCM
       shell: |
         if [ ! -d "~/2020_03_DO_Boston_casestudy_part_1/" ]
             then
@@ -25,4 +31,5 @@
         fi
       
     - name: Apply kubernetes.yaml to cluster
+      # apply a configuration change to jenkins resource from a file
       command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-jenkins.yaml

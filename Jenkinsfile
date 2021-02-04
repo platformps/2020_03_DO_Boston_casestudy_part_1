@@ -1,62 +1,55 @@
 pipeline {
-	//agent any
+	// Run application in container with dependencies installed
 	agent {
+		// Build Image from Dockerfile in checkedout repository
 		dockerfile {
+			// Mount volumes, especially Docker volume
 			args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
 		}
 	}
+	// Set name of image to push to DockerHUB
 	environment {
 		DOCKER_HUB_REPO = "nmm131/git-ansible-vb-k8-docker-jenkins"
 	}
 	stages {
-		//stage('SCM Checkout') {
-		//	steps {
-		//		script {
-		//			sh 'git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git git-ansible-vb-k8-docker-jenkins'
-		//		}
-		//	}
-		//}
 		stage('Compile-Package-Test') {
 			steps {
 				script {
-					//dir('./git-ansible-vb-k8-docker-jenkins') {
+					// Run application
 					sh "python app.py"
-					// install curl in Dockerfile and test port 5000 with curl, if not working stop pipeline
-					//env is Jenkins build parameter
-					//sh '`gen-hosts-list $env` > /path/to/hosts_list'
-					//sh 'ansible-playbook ./kuberplaybook.yml -i /path/to/hosts_list -u AUTO_USER --private-key=/path/to/private-key'
-					//sh 'minikube start'
-					//sh 'kubectl apply -f kubernetes.yaml'
-					//}
+					// If install Curl, it is possible to curl localhost:5000 (or similar) to check response of application afer running
 				}
 			}
 		}
 		stage('Build') {
 			steps {
 				script {
-					// Build new image
+					// Login to DockerHUB using Jenkins Credentials
 					withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER1', passwordVariable: 'PASS1')]) {
 					sh 'docker login -u "$USER1" -p "$PASS1"'
 					}
+					// Build Docker image and name it value of DOCKER_HUB_REPO variable
 					sh 'docker image build -t $DOCKER_HUB_REPO:latest .'
-					//todo: upgrade pip, clone project, install requirements, ignore Dockerfile and git-ansible-vb-k8-docker-jenkins@tmp from build
-					//commits empty workspace directories -> sh 'docker commit `cat /etc/hostname` $DOCKER_HUB_REPO:latest'
+					// Tag build number to built Docker image
 					sh 'docker image tag $DOCKER_HUB_REPO:latest $DOCKER_HUB_REPO:$BUILD_NUMBER'
 
-					// Push image to repository
+					// Push image to DockerHUB repository
 					sh 'docker push $DOCKER_HUB_REPO:$BUILD_NUMBER'
 					sh 'docker push $DOCKER_HUB_REPO:latest'
-
+					
+					// Print message in logs
 					echo "Image built and pushed to repository"
 				}
 			}
 		}
-		//stage('Deploy') {
-		//	steps {
-		//		script {
-		//			ansible-playbook playbook-app.yaml
-		//		}
-		//	}
-		//}
+		stage('Deploy') {
+			steps {
+				script {
+					// Deploy application using
+					//ansible-playbook playbook-app.yaml
+					sh 'echo "Need to manually test Deploy stage"'
+				}
+			}
+		}
 	}
 }

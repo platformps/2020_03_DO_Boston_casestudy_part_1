@@ -1,10 +1,15 @@
+# set metadata for grepping jenkins' deployment
 apiVersion: apps/v1
+# specify a deployment
 kind: Deployment
+# specify a name and label of deployment
 metadata:
   name: jenkins-configured
   labels:
     app: web
+# deployment specifications
 spec:
+  # set number of replicas
   replicas: 1
   selector:
     matchLabels:
@@ -14,20 +19,29 @@ spec:
       labels:
         app: web
     spec:
+      # container specifications
       containers:
+        # set container name
         - name: jenkins
+          # set named container's image
           image: nmm131/jenkins:jcasc
           ports:
+            # set container exposed ports
             - containerPort: 8080
 ---
+# set metadata for grepping jenkins' service
 apiVersion: v1
+# specify a service
 kind: Service
+# specify a name of service
 metadata:
   name: jenkins-configured-svc
+# specify allocating a port
 spec:
   type: NodePort
   selector:
     app: web
+  # map container port to allocated node's port
   ports:
   - protocol: TCP
     port: 8080
