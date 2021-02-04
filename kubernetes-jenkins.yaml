@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: jenkins:jcasc
+          image: nmm131/jenkins
           ports:
             - containerPort: 8080
 ---
