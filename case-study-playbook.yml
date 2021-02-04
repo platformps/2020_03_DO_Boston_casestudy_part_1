@@ -1,11 +1,30 @@
-- hosts: all
+- hosts: localhost
   tasks:
-  - name: copy deployment file to kubernetes master
-    copy:
-      src: kubernetes.yml
-      dest: /root/
-  - name: delete previous kubernetes deployment
-    command: kubectl delete -f /root/kubernetes.yml
-  - name: create deployment
-    command: kubectl apply -f /root/kubernetes.yml
-  
+
+     - name: remove existing repo
+       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
+
+     - name: pull repo
+       shell: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
+
+     - name: build image
+       shell: docker image build -t jasonautomation/case-study-part1 .
+
+     - name: push image
+       shell: docker push jasonautomation/case-study-part1
+
+- hosts: servers
+
+  tasks:
+     - name: start up kubernetes cluster
+       shell: minikube start
+       register: output
+
+     - name: remove existing repo
+       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
+
+     - name: pull repo
+       shell: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
+
+     - name: deploy flask-application  3 replicas
+       shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
