@@ -7,10 +7,6 @@ WORKDIR /usr/src/app
 # copy app files into container
 COPY . .
 
-# set environment variables
-ENV FLASK_APP app.py
-ENV FLASK_RUN_HOST 0.0.0.0
-
 # install prerequisites 
 RUN apk add --no-cache gcc musl-dev linux-headers
 RUN apk update && \
