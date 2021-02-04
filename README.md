@@ -74,6 +74,20 @@ failed dockerfile or app code will cause Docker trigger errors and stop the imag
      
 ![](https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/s3.png)
 
-3. Rolling a new deployment by modify kubernetes.yml file, push it to git-hub, and wait for the Pipeline to be triggered.
+3. Rolling a new deployment by modify yaml file, to have 2 old(old) deployment and 1 new(green) deployment, push it to git-hub, and wait for the Pipeline to be triggered.
 
+4. Should be the deployment changed for 2 old and 1 new (blue and green deployment) 
+
+
+
+# Continuous Deployment #
+
+1. This Step is very similar to previous step, but instead of creating new(green), we just scale the replica from 3 to 5
+
+2. Modify the ansible playbook, scale replica by adding kubectl scale command.
+
+3. Push code to github and wait for pipeline to trigger.
+
+4. result should be as below
+![](https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/s7.png)
 
