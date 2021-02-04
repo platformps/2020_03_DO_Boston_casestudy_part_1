@@ -1,7 +1,7 @@
 pipeline {
 	agent {
 		docker {
-			image 'nmm131/git-ansible-vb-k8-docker-jenkins:latest'
+			image 'nmm131/git-ansible-vb-k8-docker-jenkins'
 			args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
 		}
 	}
@@ -9,7 +9,7 @@ pipeline {
 		DOCKER_HUB_REPO = "nmm131/git-ansible-vb-k8-docker-jenkins"
 	}
 	stages {
-		//stage('SCM Checkout') {
+		stage('SCM Checkout') {
 		//	steps {
 		//		script {
 		//			sh 'git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git git-ansible-vb-k8-docker-jenkins'
