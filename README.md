@@ -97,3 +97,8 @@ failed dockerfile or app code will cause Docker trigger errors and stop the imag
 1. Originally want to use dockerized Jenkins, and let Jenkins interact with both docker and ansible, but couldn't get jenkins to work with ansible unless install ansible and tons of other tools in the container that running jenkins. However, this approach seems to much work and would cause even more problems. I give up this idea and just install Jenkins on host machine instead.
 
 2. Another big problem is getting permission denied when ansible interact with docker to build and upload image. Found out that when we run ansible in a Jenkins pipeline, the user that running command is not my current user, but the user "jenkins" instead. Giving all permission and credential it needs to user "jenkins" will solve this problem.
+
+# Improvisation #
+
+1. Ansible is so powerful, for this project, I configure the target machine and install docker, minikube manually. I could just write an ansible playbook yaml file to make the ansible configure the target machine for me. Doing it this way could save tons of time if I need multiple target machines and have a homogeneous environment on target machine. 
+
