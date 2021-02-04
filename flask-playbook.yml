@@ -22,8 +22,6 @@
 #Ansible configure target machine from host list "server" through SSH connection
 #clone down the repository and deploy the app using kubernetes by giving it the yaml file
 #original deployment is 3 replicas, later scale it up to 5
-  collections:
-     - community.kubernetes
 
   tasks:
      - name: start up kubernetes cluster
