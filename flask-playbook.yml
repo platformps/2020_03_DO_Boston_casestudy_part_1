@@ -1,8 +1,7 @@
 ---
 - hosts: localhost
 
-  collections:
-     - community.kubernetes
+#Ansile will build the image and push it to docker hub. (Done on host machine)
 
   tasks:
 
@@ -19,6 +18,9 @@
        shell: docker push kg0529/flask
 
 - hosts: servers
+
+#Ansible configure target machine from host list "server" through SSH connection
+#clone down the repository and deploy the app using kubernetes by giving it the yaml file
 
   collections:
      - community.kubernetes

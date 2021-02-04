@@ -1,9 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment          #start up the deployment, initial set up is one container with 3 pods    
 metadata:
   name: flask-deployment
 spec:
-  replicas: 3 #run 3 pods 
+  replicas: 3            # replace with  'replicas: 5' when scale up from 3 to 5
   selector:
     matchLabels:
       app: flask-app
@@ -19,7 +19,7 @@ spec:
         - containerPort: 9090
 ---
 apiVersion: v1
-kind: Service
+kind: Service           #start up the service
 metadata:
   name: flask-service
 spec:
