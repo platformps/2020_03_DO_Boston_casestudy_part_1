@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment          #start up the deployment, initial set up is one container with 3 pods    
 metadata:
-  name: flask-new
+  name: flask-deployment
 spec:
   replicas: 3            # replace with  'replicas: 5' when scale up from 3 to 5
   selector:
