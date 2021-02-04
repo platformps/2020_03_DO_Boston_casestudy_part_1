@@ -28,14 +28,20 @@ Ensure that the steps to install Jenkins Configuration as Code are followed: htt
 
 NOTE: VM orchestration can be achieved using Vagrant.
 
-Ensure tools below exist within "./src/sqlite/" before running the application:
+Ensure the setup below exist within Master VM before changing SCM:
 ```
-database.db
-dataFile.csv
-dataFile-Bad.csv
+open-ssh
+passwordless sudo
+hosts file
+ansible-hosts file
 ```
 
-You can edit db_initialization.sql to view/copy/paste commands into cmd/SQLite3.exe in the case database.db does not exist with a created table called records.
+Ensure the tools below exist within Client VMs before changing SCM:
+```
+Docker
+Kubernetes
+Jenkins Configuration as Code (jobs/credentials setup) in Kubernetes Deployment
+```
 
 ## Usage
 
