@@ -3,7 +3,7 @@ kind: Deployment          #start up the deployment, initial set up is one contai
 metadata:
   name: flask-deployment
 spec:
-  replicas: 3            # replace with  'replicas: 5' when scale up from 3 to 5
+  replicas: 2            # replace with  'replicas: 5' when scale up from 3 to 5
   selector:
     matchLabels:
       app: flask-app
@@ -21,7 +21,7 @@ spec:
 metadata:
   name: flask-new
 spec:
-  replicas: 3            # replace with  'replicas: 5' when scale up from 3 to 5
+  replicas: 1            # replace with  'replicas: 5' when scale up from 3 to 5
   selector:
     matchLabels:
       app: flask-app
