@@ -3,7 +3,7 @@ kind: Deployment          #start up the deployment, initial set up is one contai
 metadata:
   name: flask-deployment
 spec:
-  replicas: 2            # replace with  'replicas: 5' when scale up from 3 to 5
+  replicas: 3            # deploy 3 replicas of the flask app
   selector:
     matchLabels:
       app: flask-app
@@ -18,23 +18,6 @@ spec:
         ports:
         - containerPort: 9090
 
-metadata:
-  name: flask-new
-spec:
-  replicas: 1            # replace with  'replicas: 5' when scale up from 3 to 5
-  selector:
-    matchLabels:
-      app: flask-app
-  template:
-    metadata:
-      labels:
-        app: flask-app
-    spec:
-      containers:
-      - name: flask-container
-        image: kg0529/flask
-        ports:
-        - containerPort: 9090
 
 ---
 apiVersion: v1

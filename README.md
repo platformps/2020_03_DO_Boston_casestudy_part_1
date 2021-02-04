@@ -77,6 +77,7 @@ failed dockerfile or app code will cause Docker trigger errors and stop the imag
 3. Rolling a new deployment by modify yaml file, to have 2 old(old) deployment and 1 new(green) deployment, push it to git-hub, and wait for the Pipeline to be triggered.
 
 4. Should be the deployment changed for 2 old and 1 new (blue and green deployment) 
+![](https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/s6.png)
 
 
 
