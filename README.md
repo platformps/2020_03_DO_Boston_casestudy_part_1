@@ -72,6 +72,8 @@ failed dockerfile or app code will cause Docker trigger errors and stop the imag
 
 2. Run the pipeline, should get a success result
      
+![](https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/s3.png)
 
+3. Rolling a new deployment by modify kubernetes.yml file, push it to git-hub, and wait for the Pipeline to be triggered.
 
 

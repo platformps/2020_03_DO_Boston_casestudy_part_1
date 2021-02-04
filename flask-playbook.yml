@@ -39,5 +39,5 @@
      - name: deploy flask-application  3 relicas
        shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
 
-     - name: scale up flask-app
-       shell: kubectl scale deployment/flask-deployment --replicas=5
+#     - name: scale up flask-app
+#      shell: kubectl scale deployment/flask-deployment --replicas=5
