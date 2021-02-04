@@ -5,7 +5,8 @@ a
 ----------
 
 ## Design Phase ##
-  My design
+
+ My design
 
 1.   Set up git-hub repository, everything will be push to the remote repository
  
@@ -22,6 +23,7 @@ a
 ![](https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1/blob/main/flask-app.png)
 
 ## Setup Phase ##
+
 1. Fork then clone the case study project repository on my actual machine, setting up the remote git-hub repository for this case study project. 
 
 1. Setup two virtual machines, one is host machine using normal ubuntu since we need GUI on this one, one is target machine using uBuntu server version, since we will only need CLI on this one. Install all necessary tools on both such as ssh net tools, Dockers, ifconifg and etc.
@@ -34,18 +36,42 @@ Do a docker login as well, since we will be using Ansible to command docker to b
 4. On the target machine, install Kubernetes(minikube), and install kubectl(somehow installing minikube didn't install kubectl on linux machine)
 
 ## Pipeline Building ##
+
 1. Writing the pipeline in Jenkinsfile for a test run, by deploy the flask-app directly through jenkins without dockerized the flask-app. Do the Git-Poll for every 15 minutes, make sure this basic pipeline works.
 
-2. Testing the dockerized flask-app by building the image and run it directly through Docker, make sure the dockerized app works.
+2. Testing the dockerized flask-app by building the image and run it directly through Docker, make sure the dockerized app works. Then push it to docker-hub for later.
 
 3. Testing the Ansible by runing an Ansible ping to target machine, make sure the connection is fine.
 
 4. Set up the pipeline in Jenkins, so Jenkins will clone down the repository and trigger the Ansible to run a dummy playbook(this playbook is not doing any deployment, just for testing). Store the pipeline script in the Jenkinsfile.
 
-5. Successes and fails
+5. Write the corresponding yaml file for both Ansible and kubernetes. 
+
+6. Any failures in the sources code will stop the pipeline.
+failed dockerfile or app code will cause Docker trigger errors and stop the image building or container running, failed kubernetes yaml file will cause failed deployment on target machine, failed ansible playbook will cause connection error or failed deployment  
+
+7. Succeed and failed pipeline
     ![](https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1/blob/main/screenshots/s5.png)
 
 
+
+
+## Deploy Phase ##
+
+1. First deploy the application on target machine using kubernates by applying the kubernetes.yml file. Making sure this yaml file is working fine. Then delete the deployment.
+
+2. First issue encounter is that since we are using Jenkins for the pipeline, we need to add "jenkins" user to passwordless sudo list.
+
+3. Then need to add "jenkins" user docker group since we need it to run docker, even it is Jenkins triggering Ansible to use Docker for buidling and uploading images.
+
+4. Modify the ansible playbook accordingly whenever an issue coming up.
+
+# Testing Pipeline #
+
+1. All files and tools should be ready at this point,
+
+2. Run the pipeline, should get a success result
+     
 
 
 
