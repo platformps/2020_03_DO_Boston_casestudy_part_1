@@ -10,7 +10,7 @@ a
 
 1.   Set up git-hub repository, everything will be push to the remote repository
  
-2.   Building a CI/CD pipeline using Jenkins. Jenkins will check the git-hub repository every 15 minutes, if any changes were made, it will trigger a new deployment.
+2.   Building a CI/CD pipeline using Jenkins. Jenkins will check the git-hub repository every 15 minutes, if any changes were made, it will trigger a new build.
    
 3.   Host machine and target machine will be connected through SSH
   
