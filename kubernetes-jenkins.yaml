@@ -24,7 +24,7 @@ spec:
         # set container name
         - name: jenkins
           # set named container's image
-          image: nmm131/jenkins:jcasc
+          image: nmm131/jenkins:configured
           ports:
             # set container exposed ports
             - containerPort: 8080
