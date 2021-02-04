@@ -1,23 +1,4 @@
 ---
-- hosts: localhost
-
-  collections:
-     - community.kubernetes
-
-  tasks:
-
-     - name: remove existing repository
-       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
-
-     - name: pull repository
-       shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
-
-     - name: build image
-       shell: docker image build -t kg0529/flask .
-
-     - name: push image
-       shell: docker push kg0529/flask
-
 - hosts: servers
 
   collections:
