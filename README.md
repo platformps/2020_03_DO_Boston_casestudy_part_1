@@ -19,8 +19,11 @@ Its process follows the steps below:
 Download or Clone the repository to your local system using GitHub.com, GitHub Desktop application, Bitbucket.com, GitHub SourceTree application, or .zip
 
 Ensure that the steps to install Ansible are followed: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html or AWX: https://github.com/ansible/awx/blob/devel/INSTALL.md
+
 Ensure that the steps to install VirtualBox are followed: https://www.virtualbox.org/manual/ch02.html
+
 Ensure you setup a Master VM and Client VM(s) (Client VM can be your Master if deploying to localhost/Master's IP Address)
+
 Ensure that the steps to install Jenkins Configuration as Code are followed: https://github.com/nmm131/jcasc
 
 NOTE: VM orchestration can be achieved using Vagrant.
