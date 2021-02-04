@@ -1,9 +1,9 @@
 pipeline {
 	//agent any
 	agent {
-	//	dockerfile {
+		dockerfile {
 			args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
-	//	}
+		}
 	}
 	environment {
 		DOCKER_HUB_REPO = "nmm131/git-ansible-vb-k8-docker-jenkins"
