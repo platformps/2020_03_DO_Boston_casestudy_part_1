@@ -2,7 +2,7 @@ pipeline {
 	//agent any
 	agent {
 		docker {
-			image 'nmm131/git-ansible-vb-k8-docker-jenkins:latest'
+			image 'nmm131/flask-docker-jenkins-ansible-k8-v2'
 			args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
 		}
 	}
