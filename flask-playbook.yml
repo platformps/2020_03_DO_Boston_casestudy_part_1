@@ -36,12 +36,6 @@
      - name: pull repository
        shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
 
-     - name: delete old deployment if exits
-       shell: kubectl delete deployments flask-delpoyment
-
-     - name: delete old services if exist
-       shell: kubectl delete services flask-services
-
      - name: deploy flask-application  3 relicas
        shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
 
