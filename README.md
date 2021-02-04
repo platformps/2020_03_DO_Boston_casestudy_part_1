@@ -3,6 +3,7 @@ a
 #  Documentation for Case study  #
 
 ----------
+Liang Liu 
 
 ## Design Phase ##
 
