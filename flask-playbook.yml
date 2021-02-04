@@ -40,4 +40,4 @@
        shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
 
      - name: scale up flask-app
-       shell: kubectl scale deployment/flask-depolyment --replicas=5
+       shell: kubectl scale deployment/flask-deployment --replicas=5
