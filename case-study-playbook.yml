@@ -2,29 +2,33 @@
   tasks:
 
      - name: remove existing repo
-       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
+       run: rm -rf 2020_03_DO_Boston_casestudy_part_1
+       #removes existing repo
+     - name: clone repo
+       run: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
+       #clones the latest version of my repo
+     - name: build docker image
+       run: docker image build -t jasonautomation/case-study-part1 .
+       #builds out my docker image from dockerfile dependencies
+     - name: push image to my dockerhub repo
+       run: docker push jasonautomation/case-study-part1
+       #pushes newly built image to dockerhub repo
 
-     - name: pull repo
-       shell: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
-
-     - name: build image
-       shell: docker image build -t jasonautomation/case-study-part1 .
-
-     - name: push image
-       shell: docker push jasonautomation/case-study-part1
-
-- hosts: servers
+- hosts: servers 
+#located in /etc/ansible/hosts file
 
   tasks:
-     - name: start up kubernetes cluster
-       shell: minikube start
+     - name: start and run minikube
+       run: minikube start
+       #starts minikube on target machine
        register: output
 
      - name: remove existing repo
-       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
-
-     - name: pull repo
-       shell: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
-
-     - name: deploy flask-case-study  3 replicas
-       shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
+       run: rm -rf 2020_03_DO_Boston_casestudy_part_1
+        #removes existing repo on target machine
+     - name: clone repo
+       run: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
+        #clones new repo onto target machine
+     - name: deploy flask app on minikube cluster
+       run: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
+        #deployes my flask app from kubernetes.yml file and creates the ammount of pods listed in the replicas sections
