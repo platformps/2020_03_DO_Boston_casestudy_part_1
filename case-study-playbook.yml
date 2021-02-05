@@ -26,5 +26,5 @@
      - name: pull repo
        shell: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
 
-     - name: deploy flask-application  3 replicas
+     - name: deploy flask-case-study  3 replicas
        shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
