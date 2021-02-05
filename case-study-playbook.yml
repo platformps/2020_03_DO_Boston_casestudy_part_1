@@ -2,16 +2,16 @@
   tasks:
 
      - name: remove existing repo
-       run: rm -rf 2020_03_DO_Boston_casestudy_part_1
+       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
        #removes existing repo
      - name: clone repo
-       run: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
+       shell: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
        #clones the latest version of my repo
      - name: build docker image
-       run: docker image build -t jasonautomation/case-study-part1 .
+       shell: docker image build -t jasonautomation/case-study-part1 .
        #builds out my docker image from dockerfile dependencies
      - name: push image to my dockerhub repo
-       run: docker push jasonautomation/case-study-part1
+       shell: docker push jasonautomation/case-study-part1
        #pushes newly built image to dockerhub repo
 
 - hosts: servers 
@@ -19,16 +19,16 @@
 
   tasks:
      - name: start and run minikube
-       run: minikube start
+       shell: minikube start
        #starts minikube on target machine
        register: output
 
      - name: remove existing repo
-       run: rm -rf 2020_03_DO_Boston_casestudy_part_1
+       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
         #removes existing repo on target machine
      - name: clone repo
-       run: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
+       shell: git clone https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1.git
         #clones new repo onto target machine
      - name: deploy flask app on minikube cluster
-       run: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
+       shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
         #deployes my flask app from kubernetes.yml file and creates the ammount of pods listed in the replicas sections
