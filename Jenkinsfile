@@ -1,23 +1,28 @@
 pipeline {
 	// Run application in container with dependencies installed
-	agent {
-		// Build Image from Dockerfile in checkedout repository
-		dockerfile {
-			// Mount volumes, especially Docker volume
-			args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
-		}
-	}
+	agent any
 	// Set name of image to push to DockerHUB
 	environment {
-		DOCKER_HUB_REPO = "nmm131/git-ansible-vb-k8-docker-jenkins"
+		DOCKER_HUB_REPO = "nmm131/git-jenkins-ansible-vb-docker-k8"
 	}
 	stages {
 		stage('Compile-Package-Test') {
 			steps {
 				script {
 					// Run application
-					sh "python app.py"
-					// If install Curl, it is possible to curl localhost:5000 (or similar) to check response of application afer running
+					sh 'python app.py'
+					// Check response of application after running
+					// Stop Jenkins Build if application is not responding
+					sh '''
+						if curl -sL --fail http://localhost:5000 -o /dev/null
+						then
+							echo "Application successfully running!"
+						else
+							echo "Application isn't responding!"
+							currentBuild.result = 'ABORTED'
+							error('Application isn't responding! Stopping early…')
+						fi
+						'''
 				}
 			}
 		}
@@ -45,9 +50,8 @@ pipeline {
 		stage('Deploy') {
 			steps {
 				script {
-					// Deploy application using
-					//ansible-playbook playbook-app.yaml
-					sh 'echo "Need to manually test Deploy stage"'
+					// Deploy application using ansible and kubernetes
+					ansible-playbook playbook-deploy-app.yaml
 				}
 			}
 		}

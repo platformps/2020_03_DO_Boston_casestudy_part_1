@@ -4,13 +4,13 @@ apiVersion: apps/v1
 kind: Deployment
 # specify a name and label of deployment
 metadata:
-  name: git-ansible-vb-k8-docker-jenkins
+  name: git-jenkins-ansible-vb-docker-k8
   labels:
     app: app
 # deployment specifications
 spec:
   # set number of replicas
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: app
@@ -24,7 +24,7 @@ spec:
         # set container name
         - name: front-end
           # set named container's image
-          image: git-ansible-vb-k8-docker-jenkins:latest
+          image: git-jenkins-ansible-vb-docker-k8:latest
           ports:
             # set container exposed ports
             - containerPort: 5000
@@ -35,7 +35,7 @@ apiVersion: v1
 kind: Service
 # specify a name of service
 metadata:
-  name: git-ansible-vb-k8-docker-jenkins-svc
+  name: git-jenkins-ansible-vb-docker-k8-svc
 # specify allocating a port
 spec:
   type: NodePort

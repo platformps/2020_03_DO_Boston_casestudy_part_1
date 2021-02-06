@@ -2,16 +2,16 @@
 # run on localhost instead of Client VMs
 - hosts: localhost
   tasks:
-    #- name: install kubernetes
-    #  shell: #installation commands go here
-      
-    - name: Copy required kubernetes files
+    - name: Install kubernetes
+      # install Kubernetes
       # if .kube directory does not exist, create it and copy kubernetes admin configuration to it
       # then set ownership of kubernetes admin config file needed to run kubernetes
       shell: |
-       mkdir -p $HOME/.kube
-       sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-       sudo chown $(id -u):$(id -g) $HOME/.kube/config
+        curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-arm64
+        sudo install minikube-linux-arm64 /usr/local/bin/minikube
+        mkdir -p $HOME/.kube
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config
        
     - name: Initialize kubernetes cluster
       # start kubernetes cluster

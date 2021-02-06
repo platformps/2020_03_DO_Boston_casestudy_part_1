@@ -7,14 +7,10 @@ WORKDIR /usr/src/app
 # copy app files into container
 COPY . .
 
-# install prerequisites 
-RUN apk add --no-cache gcc musl-dev linux-headers
+# install requirements
 RUN apk update && \
 	apk upgrade && \
-	apk add git
-RUN apk update && \
-	apk upgrade && \
-	apk add docker
+	apk add curl
 RUN pip install -r requirements.txt
 
 # expose a port for the app
