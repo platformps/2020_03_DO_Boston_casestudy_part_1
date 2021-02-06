@@ -7,9 +7,23 @@ Create a Master VM and any number of Client VMs.
 
 ![Screenshot](vm-setup.png)
 
-Mount and install VirtualBox Guest Additions.
+Mount VirtualBox Guest Additions by clicking on the following tab on your VMs:
 
-![Screenshot](vm-guest-additions-insertion.png)
+```
+Devices/Insert Guest Additions CD image
+```
+
+In the new pop-up window, browse your host file system for the VBoxGuestAdditions.iso file then click ```Add```.
+
+Install the mounted VirtualBox Guest Additions by going to the directory:
+ ```/media/VM-Name-Here/VBox_GAs_Version-Here``` 
+
+Ensure you replace "*VM-Name-Here*" with the name of your VM and "*Version-Here*" with your version of Guest Additions CD image in the directory above. Example: ```/media/master/VBox_GAs_6.1.16```
+
+Run the ```VBoxLinuxAdditions.run``` file using the following command:
+
+    sudo ./VBoxLinuxAdditions.run
+
 
 ![Screenshot](vm-guest-additions-commandline.png)
 
@@ -36,15 +50,13 @@ Ensure you are running an up-to-date Operating System (OS). If you are not, foll
 
 ### A. Install Java: ###
 
-Install OpenJDK 8 on your Master VM:
+Install OpenJDK 8 on your Master VM by running the following command:
 
     sudo apt-get install openjdk-8-jdk
 
 ### B. Install Docker: ###
 
-Install Docker on your Master VM:
-
-Ensure you are following the most up-to-date documentation: [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+Install Docker on your Master VM. Ensure you are following the most up-to-date documentation: [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
 
 Installation requires you to run the following commands on your Master VM:
 
@@ -65,11 +77,11 @@ Installation requires you to run the following commands on your Master VM:
     sudo apt update
     sudo apt install docker-ce docker-ce-cli containerd.io
 
-### c. Install Jenkins: ###
+### C. Install Jenkins: ###
 
 Install Jenkins on your Master VM. Ensure you are following the most up-to-date documentation: [https://www.jenkins.io/doc/book/installing/](https://www.jenkins.io/doc/book/installing/)
 
-Installation requires you to run the  following commands on your Master VM:
+Installation requires you to run the following commands on your Master VM:
 
 
     wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
@@ -80,7 +92,7 @@ Installation requires you to run the  following commands on your Master VM:
 
 ### D. Modify config.xml: ###
 
-Modify ```/var/lib/jenkins/config.xml``` to change ```<useSecurity>true</useSecurity>``` to
+Modify ```/var/lib/jenkins/config.xml``` and edit ```<useSecurity>true</useSecurity>``` to
 ```<useSecurity>false</useSecurity>```
 
 ![Screenshot](jenkins-disable-useSecurity.png)
@@ -91,15 +103,20 @@ Restart Jenkins:
 
 ### E. Install Plugins: ###
 
+In your Master VM, open a new tab in a web-browser and open ```http://localhost:8080/```.
+
+NOTE: Port 8080 is the default port for Jenkins. Ensure no other application is accessing Port 8080.
+
+Once Jenkins loads, click ```Install Suggested Plugins```
+
+
 ![Screenshot](jenkins-install-suggested-plugins.png)
 
-Configure Jenkins URL:
+After all suggested plugins are downloaded successfully, configure Jenkins URL to ```http://localhost:8080/``` and click ```Save and Finish```.
 
 ![Screenshot](jenkins-url.png)
 
-Install Plugins:
-
-Click Manage Jenkins/Manage Plugins/Available and search for:
+Once Jenkins opens the Dashboard, click ```Manage Jenkins/Manage Plugins/Available`` and search for the following:
 
 1. Python
 2. ShiningPanda
@@ -111,18 +128,20 @@ Ensure you have selected all plugins then click ```Download now and install afte
 
 ![Screenshot](jenkins-install-plugins.png)
 
-When plugins have been downloaded successfully, click ```Restart Jenkins when installation is complete and no jobs are running``` then click ```Go back to the top page```
+When all plugins have been downloaded successfully, click ```Restart Jenkins when installation is complete and no jobs are running``` then click ```Go back to the top page```
 
 ![Screenshot](jenkins-install-plugins-downloaded-successfully.png)
 
 
-### F. Add Docker Credentials ###:
+### F. Add Docker Credentials ###
 
 Click on ```Manage Jenkins/Manage Credentials/Jenkins/Global credentials (unrestricted)/Add Credentials```
 
 For Kind, select ```Username with Password```
 
-Type in your ```Username and ```Password```
+Type in your DockerHUB ```Username``` and ```Password```
+
+NOTE: Never check sensitive material into source control!
 
 For ID, type ```dockerhub```
 
@@ -131,7 +150,7 @@ For ID, type ```dockerhub```
 
 ## 3. Create a Jenkins Pipeline ##
 
-Click ```New Item / Pipeline``` and give it a name. Then click ```OK```
+Go back to the Jenkins Dashboard and click ```New Item / Pipeline``` and give it a name. Then click ```OK```
 
 ![Screenshot](jenkins-create-pipeline.png)
 
