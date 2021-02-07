@@ -1,12 +1,11 @@
-FROM ubuntu
-#pulls down latest ubuntu image
-RUN apt-get update
-#runs updates on new image
-RUN apt-get install -y python3 python3-pip
-#installs python
-RUN pip3 install flask
-#installs flask
+FROM python:3.7-alpine
+WORKDIR /code
+ENV FLASK_APP web.py
+ENV FLASK_RUN_HOST 0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+COPY . .
 EXPOSE 8081
-#exposes port 8081 
-CMD ["python3","web.py"]
-#runs the web.py flask application
+CMD ["flask", "run"]
+
