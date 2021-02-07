@@ -35,7 +35,7 @@ pipeline {
 			steps {
 				script {
 					// Login to DockerHUB using Jenkins Credentials
-					sudo withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER1', passwordVariable: 'PASS1')]) {
+					withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER1', passwordVariable: 'PASS1')]) {
 					sh 'docker login -u "$USER1" -p "$PASS1"'
 					}
 					// Build Docker image and name it value of DOCKER_HUB_REPO variable
