@@ -2,6 +2,7 @@ pipeline {
 	// Run application in container with dependencies installed
 	agent {
 		dockerfile {
+			// '-e HOME=/tmp' fixes withCredentials' "mkdir /.docker permission denied" error
 			args '-e HOME=/tmp -v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
 		}
 	}
@@ -55,6 +56,7 @@ pipeline {
 		stage('Deploy') {
 			steps {
 				script {
+					sh 'echo "PWD: `pwd` and ls: `ls`"'
 					// Deploy application using ansible and kubernetes
 					sh 'ansible-playbook playbook-deploy-app.yaml'
 				}
