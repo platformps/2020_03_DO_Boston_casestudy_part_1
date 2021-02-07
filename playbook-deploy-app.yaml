@@ -1,6 +1,6 @@
 ---
-# run on Master VM
-- hosts: ansible-awx
+# run on Client VM
+- hosts: group1
   tasks:
     #- name: install kubernetes
     #  shell: #installation commands go here
