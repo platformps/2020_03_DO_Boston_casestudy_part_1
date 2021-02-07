@@ -62,11 +62,11 @@ pipeline {
 				}
 			}
 		}
-		post {
-			success {
-				script {
-					sh 'ansible-playbook playbook-deploy-app.yaml'
-				}
+	}
+	post {
+		success {
+			script {
+				sh 'ansible-playbook playbook-deploy-app.yaml'
 			}
 		}
 	}
