@@ -8,7 +8,19 @@
       # start kubernetes cluster
       shell: minikube start
       register: output
+    - name: Clone git project
+      shell: |
+        if [ -d ~/2020_03_DO_Boston_casestudy_part_1 ]
+        then
+            dir('~/2020_03_DO_Boston_casestudy_part_1') {
+                git pull
+            }
+        else
+            dir ('~') {
+                git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
+            }
+        fi
       
     - name: Push configuration changes to cluster
       # apply a configuration change to application resource from a file
-      command: kubectl apply -f kubernetes-app.yaml
+      command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-app.yaml
