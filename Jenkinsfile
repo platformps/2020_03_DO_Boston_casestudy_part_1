@@ -3,6 +3,7 @@ pipeline {
 	agent {
 		dockerfile {
 			args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker'
+		}
 	// Set name of image to push to DockerHUB
 	environment {
 		DOCKER_HUB_REPO = "nmm131/git-jenkins-ansible-vb-docker-k8"
