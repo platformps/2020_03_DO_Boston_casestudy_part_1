@@ -60,10 +60,9 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps {
-				script {
-					sh 'echo "PWD: `pwd` and ls: `ls`"'
-					// Deploy application using ansible and kubernetes
-					node('master') {
+				// Deploy application using ansible and kubernetes
+				node('master') {
+					script {
 						sh 'ansible-playbook playbook-deploy-app.yaml'
 					}
 				}
