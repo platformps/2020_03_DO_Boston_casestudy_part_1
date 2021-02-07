@@ -229,9 +229,11 @@ NOTE: Replace ```client``` with the username which currently exists on the host.
 
 ## 5. Install Kubernetes ##
 
+
+
 Install Kubernetes on your Client VM(s). Ensure you are following the most up-to-date documentation: [https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
-Or use the provided ```playbookpinstall-kubernetes.yaml```. It requires you to run following command on your Master VM:
+Or use the provided ```playbook-install-kubernetes.yaml```. It requires you to run following command on your Master VM:
 
     ansible-playbook playbook-install-kubernetes.yaml
 
