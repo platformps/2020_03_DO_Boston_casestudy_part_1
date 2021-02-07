@@ -227,6 +227,7 @@ NOTE: Replace ```client``` with the username which currently exists on the host.
 
 ![Screenshot](ansible-passwordless-sudo.png)
 
+
 ## 5. Install Kubernetes ##
 
 
@@ -238,3 +239,10 @@ Or use the provided ```playbook-install-kubernetes.yaml```. It requires you to r
     ansible-playbook playbook-install-kubernetes.yaml
 
 ![Screenshot](ansible-install-kubernetes.png)
+
+
+## 6. Make a Change on SCM
+
+Change the project on ```SCM``` using ```git``` while Master and Client VMs running.
+
+NOTE: Master VM must be running Jenkins with Poll SCM configured.
