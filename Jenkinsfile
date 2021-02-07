@@ -1,6 +1,8 @@
 pipeline {
 	// Run application in container with dependencies installed
-	agent any
+	agent {
+		dockerfile true
+	}
 	// Set name of image to push to DockerHUB
 	environment {
 		DOCKER_HUB_REPO = "nmm131/git-jenkins-ansible-vb-docker-k8"
