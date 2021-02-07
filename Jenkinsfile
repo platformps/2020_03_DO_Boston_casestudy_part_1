@@ -22,7 +22,6 @@ pipeline {
 							echo "Application successfully running!"
 						else
 							echo "Application isn\'t responding!"
-						fi
 							currentBuild.result = \'ABORTED\'
 							error(\'Application isn\'t responding! Stopping early…\')
 						fi
