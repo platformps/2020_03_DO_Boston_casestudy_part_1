@@ -13,45 +13,47 @@ pipeline {
 			environment {
 				DOCKER_HUB_REPO = "nmm131/git-jenkins-ansible-vb-docker-k8"
 			}
-			stage('Compile-Package-Test') {
-				steps {
-					script {
-						// Run application
-						sh 'python3 app.py &'
-						sh 'sleep 1'
-						// Check response of application after running
-						// Stop Jenkins Build if application is not responding
-						sh '''
-							if [ curl -sL --fail http://localhost:5000 -o /dev/null ]
-							then
-								echo "Application successfully running!"
-							else
-								echo "Application isn't responding!"
-								#currentBuild.result = 'ABORTED'
-								#error('Application isn't responding! Stopping early…')
-							fi
-							'''
+			stages {
+				stage('Compile-Package-Test') {
+					steps {
+						script {
+							// Run application
+							sh 'python3 app.py &'
+							sh 'sleep 1'
+							// Check response of application after running
+							// Stop Jenkins Build if application is not responding
+							sh '''
+								if [ curl -sL --fail http://localhost:5000 -o /dev/null ]
+								then
+									echo "Application successfully running!"
+								else
+									echo "Application isn't responding!"
+									#currentBuild.result = 'ABORTED'
+									#error('Application isn't responding! Stopping early…')
+								fi
+								'''
+						}
 					}
 				}
-			}
-			stage('Build') {
-				steps {
-					script {
-						// Login to DockerHUB using Jenkins Credentials
-						withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER1', passwordVariable: 'PASS1')]) {
-						sh 'docker login -u "$USER1" -p "$PASS1"'
-						}
-						// Build Docker image and name it value of DOCKER_HUB_REPO variable
-						sh 'docker image build -t $DOCKER_HUB_REPO:latest .'
-						// Tag build number to built Docker image
-						sh 'docker image tag $DOCKER_HUB_REPO:latest $DOCKER_HUB_REPO:$BUILD_NUMBER'
+				stage('Build') {
+					steps {
+						script {
+							// Login to DockerHUB using Jenkins Credentials
+							withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER1', passwordVariable: 'PASS1')]) {
+							sh 'docker login -u "$USER1" -p "$PASS1"'
+							}
+							// Build Docker image and name it value of DOCKER_HUB_REPO variable
+							sh 'docker image build -t $DOCKER_HUB_REPO:latest .'
+							// Tag build number to built Docker image
+							sh 'docker image tag $DOCKER_HUB_REPO:latest $DOCKER_HUB_REPO:$BUILD_NUMBER'
 
-						// Push image to DockerHUB repository
-						sh 'docker push $DOCKER_HUB_REPO:$BUILD_NUMBER'
-						sh 'docker push $DOCKER_HUB_REPO:latest'
-						
-						// Print message in logs
-						echo "Image built and pushed to repository"
+							// Push image to DockerHUB repository
+							sh 'docker push $DOCKER_HUB_REPO:$BUILD_NUMBER'
+							sh 'docker push $DOCKER_HUB_REPO:latest'
+							
+							// Print message in logs
+							echo "Image built and pushed to repository"
+						}
 					}
 				}
 			}
