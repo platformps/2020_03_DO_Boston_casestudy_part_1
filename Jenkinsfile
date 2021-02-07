@@ -19,6 +19,7 @@ pipeline {
 							echo "Application successfully running!"
 						else
 							echo "Application isn't responding!"
+						fi
 							currentBuild.result = 'ABORTED'
 							error('Application isn't responding! Stopping early…')
 						fi
@@ -51,7 +52,7 @@ pipeline {
 			steps {
 				script {
 					// Deploy application using ansible and kubernetes
-					ansible-playbook playbook-deploy-app.yaml
+					sh 'ansible-playbook playbook-deploy-app.yaml'
 				}
 			}
 		}
