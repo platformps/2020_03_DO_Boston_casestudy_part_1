@@ -209,11 +209,23 @@ sudo apt install openssh-server
 Generate a new SSH Key and copy the public key to your Client VM:
 
     ssh-keygen
-    ssh-copy-id client@client
+    ssh-copy-id client@client-client
 
 
-NOTE: Replace ```client@client``` with your username and host. In the command above, the right-side of @ is the host, or IP Address. The left-side of @ is the username which currently exists on the host.
+NOTE: Replace ```client@client-client``` with your username and host. In the command above, the right-side of @ is the host, or IP Address. The left-side of @ is the username which currently exists on the host.
 
+### C. Allow Passwordless Sudo: ###
+Execute the following command in your Client VM in order to modify the ```sudoers``` file safely:
+
+    sudo visudo
+
+Add the following line at the bottom of the ```sudoers``` file:
+
+    client ALL=(ALL:ALL) NOPASSWD: ALL
+
+NOTE: Replace ```client``` with the username which currently exists on the host.
+
+![Screenshot](ansible-passwordless-sudo.png)
 
 ## 5. Install Kubernetes ##
 

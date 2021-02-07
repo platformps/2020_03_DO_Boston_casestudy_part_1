@@ -1,12 +1,13 @@
 ---
 # run on Client VM
-- hosts: client
+- hosts: group1
   tasks:
     - name: Install kubernetes
       # install Kubernetes
       # if .kube directory does not exist, create it and copy kubernetes admin configuration to it
       # then set ownership of kubernetes admin config file needed to run kubernetes
       shell: |
+        sudo apt install curl
         curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-arm64
         sudo install minikube-linux-arm64 /usr/local/bin/minikube
         mkdir -p $HOME/.kube
