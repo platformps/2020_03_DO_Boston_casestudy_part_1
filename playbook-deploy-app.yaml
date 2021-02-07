@@ -4,11 +4,11 @@
   tasks:
     #- name: install kubernetes
     #  shell: #installation commands go here
-    - name: initialize kubernetes cluster
+    - name: Initialize kubernetes cluster
       # start kubernetes cluster
       shell: minikube start
       register: output
       
-    - name: kubectl apply
+    - name: Push configuration changes to cluster
       # apply a configuration change to application resource from a file
-      command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-app.yaml
+      command: kubectl apply -f kubernetes-app.yaml
