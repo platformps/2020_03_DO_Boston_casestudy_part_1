@@ -1,13 +1,13 @@
-# use base image
+# pull a base image
 FROM python:3.7-alpine
 
-# set app directory
+# set current working directory
 WORKDIR /usr/src/app
 
 # copy app files into container
 COPY . .
 
-# install requirements
+# install curl and requirements
 RUN apk update && \
 	apk upgrade && \
 	apk add curl

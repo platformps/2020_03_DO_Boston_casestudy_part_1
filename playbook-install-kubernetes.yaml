@@ -1,6 +1,6 @@
 ---
-# run on localhost instead of Client VMs
-- hosts: localhost
+# run on Client VM
+- hosts: client
   tasks:
     - name: Install kubernetes
       # install Kubernetes
