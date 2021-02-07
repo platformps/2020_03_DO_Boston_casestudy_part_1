@@ -19,30 +19,7 @@
         sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
         mkdir -p ~/.local/bin/kubectl
         mv ./kubectl ~/.local/bin/kubectl
-        
         curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
         echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
         sudo apt-get update
         sudo apt-get install -y kubectl
-
-       
-    - name: Initialize kubernetes cluster
-      # start kubernetes cluster
-      shell: minikube start
-      register: output
-    - name: Clone repository if does not exist
-      # if git project does not exist, clone it
-      # otherwise update project from SCM
-      shell: |
-        if [ ! -d "~/2020_03_DO_Boston_casestudy_part_1/" ]
-            then
-            git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
-        else
-            dir('~/2020_03_DO_Boston_casestudy_part_1/') {
-                git pull
-            }
-        fi
-      
-    - name: Apply kubernetes.yaml to cluster
-      # apply a configuration change to jenkins resource from a file
-      command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-jenkins.yaml
