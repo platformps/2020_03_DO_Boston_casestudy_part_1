@@ -5,7 +5,6 @@ pipeline {
 			true
 		}
 		args '-v /root/.m2:/root/.m2 -v /var/run/docker.sock:/var/run/docker.sock'
-		}
 	}
 	// Set name of image to push to DockerHUB
 	environment {
