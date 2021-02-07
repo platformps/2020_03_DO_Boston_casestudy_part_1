@@ -58,15 +58,10 @@ pipeline {
 				script {
 					sh 'echo "PWD: `pwd` and ls: `ls`"'
 					// Deploy application using ansible and kubernetes
-					
+					node('master') {
+						sh 'ansible-playbook playbook-deploy-app.yaml'
+					}
 				}
-			}
-		}
-	}
-	post {
-		success {
-			script {
-				sh 'ansible-playbook playbook-deploy-app.yaml'
 			}
 		}
 	}
