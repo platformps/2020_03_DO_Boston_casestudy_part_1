@@ -17,13 +17,13 @@ pipeline {
 					// Check response of application after running
 					// Stop Jenkins Build if application is not responding
 					sh '''
-						if curl -sL --fail http://localhost:5000 -o /dev/null
+						if [ curl -sL --fail http://localhost:5000 -o /dev/null ]
 						then
 							echo "Application successfully running!"
 						else
 							echo "Application isn't responding!"
-							//currentBuild.result = 'ABORTED'
-							//error('Application isn't responding! Stopping early…')
+							#currentBuild.result = 'ABORTED'
+							#error('Application isn't responding! Stopping early…')
 						fi
 						'''
 				}
