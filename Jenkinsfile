@@ -1,7 +1,5 @@
 pipeline {
-	agent {
-		any
-	}
+	agent none
 	stages {
 		stage('docker') {
 			// Run application in container with dependencies installed
