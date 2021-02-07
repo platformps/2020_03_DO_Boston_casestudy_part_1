@@ -1,1 +1,1 @@
-Please follow the live [document](https://docs.google.com/document/d/17OwlITE-yPWNj3Vi5RtQfz3ItvSkOfnbaVMnzlZyGTg)
+Please see powerpoint for documentation- https://github.com/JasonAutomation/2020_03_DO_Boston_casestudy_part_1/blob/master/DevOps%20Pipeline.pptx
