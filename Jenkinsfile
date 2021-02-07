@@ -12,7 +12,7 @@ pipeline {
 			steps {
 				script {
 					// Run application
-					sh 'python app.py'
+					sh 'python app.py &'
 					// Check response of application after running
 					// Stop Jenkins Build if application is not responding
 					sh '''
