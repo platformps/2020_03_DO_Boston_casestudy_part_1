@@ -12,8 +12,7 @@
       shell: |
         if [ -d /home/client/2020_03_DO_Boston_casestudy_part_1 ]
         then
-            rm -rf /home/client/2020_03_DO_Boston_casestudy_part_1
-            git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
+            cd /home/client/2020_03_DO_Boston_casestudy_part_1 && git pull
         else
             git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
         fi
