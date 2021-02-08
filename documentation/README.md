@@ -158,6 +158,10 @@ For ```Kind```, select ```SSH Username with private key```
 
 For ```ID```, type ```ansible```
 
+For ```Username```, type ```master```
+
+NOTE: Replace ```master``` with your username which currently exists on the Master VM host.
+
 For ```Private Key```, click ```Enter directly```
 
 Run the following command in your Master VM:
@@ -272,7 +276,9 @@ Modify the project however you like on ```SCM``` using ```git```.
 
 NOTE: Master and Client VMs must be running. Also, Master VM must be running Jenkins with Poll SCM configured.
 
-In your Master VM, open a new tab in a web-browser and open ```http://32500:5000/``` to view the change when the pipeline is done.
+In your Master VM, open a new tab in a web-browser and open ```http://http://192.168.49.2:32500/``` to view the change when the pipeline is done.
+
+NOTE: Replace ```192.168.49.2``` with your Client VM's IP Address. Replace ```32500``` with your application's service's nodePort.
 
 ## Useful Resources ##
 To help you configure ```Docker```, ```Ansible``` and ```Jenkins``` commands in ```Jenkinsfile```, visit the following URL in your Master VM while Jenkins is running:
@@ -282,4 +288,4 @@ To help you configure ```Docker```, ```Ansible``` and ```Jenkins``` commands in 
 Challenges:
 Kubernetes Installation in Playbook
 
-Pod Image Crash
+Escape every (') with (\) inside multi-line sh (''')
