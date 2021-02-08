@@ -60,12 +60,9 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps {
-				// Deploy application using ansible and kubernetes on Master VM
-				node('master') {
-					script {
-						sh 'echo "WHOAMI: `whoami`"'
-						sh 'sudo ansible-playbook -i /etc/ansible/hosts playbook-deploy-app.yaml --private-key=/var/lib/jenkins/.ssh/id_rsa'
-					}
+				script {
+					// Deploy application using ansible and kubernetes
+					ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: '/home/master/2020_03_DO_Boston_casestudy_part_1/playbook-deploy-app.yaml'
 				}
 			}
 		}
