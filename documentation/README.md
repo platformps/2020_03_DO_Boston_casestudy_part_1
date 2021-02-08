@@ -284,10 +284,13 @@ NOTE: Replace ```192.168.49.2``` with your Client VM's IP Address. Replace ```32
 To help you configure ```Docker```, ```Ansible``` and ```Jenkins``` commands in ```Jenkinsfile```, visit the following URL in your Master VM while Jenkins is running:
 
 > http://localhost:8080/job/git-jenkins-ansible-vb-docker-k8/pipeline-syntax/
+> 
+> sudo chmod 666 /var/run/docker.sock
 
 ---
 Challenges:
 
 - Docker & Kubernetes Installation in Playbook
 - Escape every (') with (\) inside multi-line sh (''') in Jenkinsfile
+- Test server with curl in Jenkinsfile
 - Clone/Pull repo in Playbook

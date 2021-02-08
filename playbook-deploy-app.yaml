@@ -2,12 +2,12 @@
 # run on Client VM
 - hosts: group1
   tasks:
-    #- name: install kubernetes
-    #  shell: #installation commands go here
+    # start a minikube cluster
     - name: Initialize kubernetes cluster
       # start kubernetes cluster
       shell: minikube start
       register: output
+    # clone git project
     - name: Clone git project
       git:
         repo: 'https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git'
@@ -15,7 +15,6 @@
         clone: yes
         update: yes
         force: yes
-      
     - name: Push configuration changes to cluster
       # apply a configuration change to application resource from a file
       command: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes-app.yaml
