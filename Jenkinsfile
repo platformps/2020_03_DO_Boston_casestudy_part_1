@@ -23,7 +23,7 @@ pipeline {
 							// Check response of application after running
 							// Stop Jenkins Build if application is not responding
 							sh '''
-								if [ curl -sL --fail http://localhost:5000 -o /dev/null ]
+								if [ curl -sL --fail http://0.0.0.0:5000 -o /dev/null ]
 								then
 									echo "Application successfully running!"
 								else
@@ -58,9 +58,10 @@ pipeline {
 				}
 			}
 		}
-		node('master') {
-			stage('Deploy') {
-				steps {
+		
+		stage('Deploy') {
+			steps {
+				node('master') {
 					script {
 						// Deploy application using ansible and kubernetes
 						ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: '/home/master/2020_03_DO_Boston_casestudy_part_1/playbook-deploy-app.yaml'
