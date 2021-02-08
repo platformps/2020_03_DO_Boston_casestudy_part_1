@@ -14,6 +14,7 @@
         dest: /home/client
         clone: yes
         update: yes
+        force: yes
       
     - name: Push configuration changes to cluster
       # apply a configuration change to application resource from a file
