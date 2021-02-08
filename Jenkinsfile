@@ -63,7 +63,8 @@ pipeline {
 				// Deploy application using ansible and kubernetes on Master VM
 				node('master') {
 					script {
-						sh 'cp ~/.ssh/id_rsa /var/lib/jenkins/.ssh/id_rsa'
+						sh 'echo "PWD: `pwd`"'
+						sh 'cp /home/master/.ssh/id_rsa /var/lib/jenkins/.ssh/id_rsa'
 						sh 'ansible-playbook -i /etc/ansible/hosts playbook-deploy-app.yaml --private-key=/var/lib/jenkins/.ssh/id_rsa'
 					}
 				}
