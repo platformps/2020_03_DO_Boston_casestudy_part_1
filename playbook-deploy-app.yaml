@@ -12,13 +12,10 @@
       shell: |
         if [ -d /home/client/2020_03_DO_Boston_casestudy_part_1 ]
         then
-            dir('/home/client/2020_03_DO_Boston_casestudy_part_1') {
-                git pull
-            }
+            rm -rf /home/client/2020_03_DO_Boston_casestudy_part_1
+            git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
         else
-            dir ('/home/client/') {
-                git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
-            }
+            git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
         fi
       
     - name: Push configuration changes to cluster

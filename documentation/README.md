@@ -287,5 +287,5 @@ To help you configure ```Docker```, ```Ansible``` and ```Jenkins``` commands in 
 
 Challenges:
 Kubernetes Installation in Playbook
-
-Escape every (') with (\) inside multi-line sh (''')
+Escape every (') with (\) inside multi-line sh (''') in Jenkinsfile
+Clone/Pull in Playbook Deploy App
