@@ -24,4 +24,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 # run the app
-CMD ["app", "run"]
+CMD ["flask", "run"]
