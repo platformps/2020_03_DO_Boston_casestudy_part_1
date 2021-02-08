@@ -241,8 +241,8 @@ Or use the provided ```playbook-install-kubernetes.yaml```. It requires you to r
 ![Screenshot](ansible-install-kubernetes.png)
 
 
-## 6. Make a Change on SCM
+## 6. Make a Change to SCM
 
-Change the project on ```SCM``` using ```git``` while Master and Client VMs running.
+Modify the project however you like on ```SCM``` using ```git```.
 
-NOTE: Master VM must be running Jenkins with Poll SCM configured.
+NOTE: Master and Client VMs must be running. Also, Master VM must be running Jenkins with Poll SCM configured.

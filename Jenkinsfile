@@ -58,11 +58,13 @@ pipeline {
 				}
 			}
 		}
-		stage('Deploy') {
-			steps {
-				script {
-					// Deploy application using ansible and kubernetes
-					ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: '/home/master/2020_03_DO_Boston_casestudy_part_1/playbook-deploy-app.yaml'
+		node('master') {
+			stage('Deploy') {
+				steps {
+					script {
+						// Deploy application using ansible and kubernetes
+						ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: '/home/master/2020_03_DO_Boston_casestudy_part_1/playbook-deploy-app.yaml'
+					}
 				}
 			}
 		}
