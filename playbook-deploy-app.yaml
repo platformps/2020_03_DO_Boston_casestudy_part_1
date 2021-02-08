@@ -9,13 +9,11 @@
       shell: minikube start
       register: output
     - name: Clone git project
-      shell: |
-        if [ -d /home/client/2020_03_DO_Boston_casestudy_part_1 ]
-        then
-            cd /home/client/2020_03_DO_Boston_casestudy_part_1 && git pull
-        else
-            git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git /home/client/2020_03_DO_Boston_casestudy_part_1
-        fi
+      git:
+        repo: 'https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git'
+        dest: /home/client
+        clone: yes
+        update: yes
       
     - name: Push configuration changes to cluster
       # apply a configuration change to application resource from a file
