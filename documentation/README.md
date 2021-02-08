@@ -271,3 +271,15 @@ Or use the provided ```playbook-install-kubernetes.yaml```. It requires you to r
 Modify the project however you like on ```SCM``` using ```git```.
 
 NOTE: Master and Client VMs must be running. Also, Master VM must be running Jenkins with Poll SCM configured.
+
+In your Master VM, open a new tab in a web-browser and open ```http://32500:5000/``` to view the change when the pipeline is done.
+
+## Useful Resources ##
+To help you configure ```Docker```, ```Ansible``` and ```Jenkins``` commands in ```Jenkinsfile```, visit the following URL in your Master VM while Jenkins is running:
+
+> http://localhost:8080/job/git-jenkins-ansible-vb-docker-k8/pipeline-syntax/
+
+Challenges:
+Kubernetes Installation in Playbook
+
+Pod Image Crash

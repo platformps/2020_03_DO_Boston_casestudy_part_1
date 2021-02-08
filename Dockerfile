@@ -4,6 +4,10 @@ FROM python:3.7-alpine
 # set current working directory
 WORKDIR /usr/src/app
 
+# set environment variables
+ENV FLASK_APP app.py
+ENV FLASK_RUN_HOST 0.0.0.0
+
 # copy app files into container
 COPY . .
 
