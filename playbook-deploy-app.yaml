@@ -10,13 +10,13 @@
       register: output
     - name: Clone git project
       shell: |
-        if [ -d ~/2020_03_DO_Boston_casestudy_part_1 ]
+        if [ -d /home/client/2020_03_DO_Boston_casestudy_part_1 ]
         then
-            dir('~/2020_03_DO_Boston_casestudy_part_1') {
+            dir('/home/client/2020_03_DO_Boston_casestudy_part_1') {
                 git pull
             }
         else
-            dir ('~') {
+            dir ('/home/client/') {
                 git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
             }
         fi
