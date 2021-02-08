@@ -123,6 +123,7 @@ Once Jenkins opens the Dashboard, click ```Manage Jenkins/Manage Plugins/Availab
 3. Docker
 4. Docker Pipeline
 5. CloudBees Docker Custom Build Environment
+6. Ansible
 
 Ensure you have selected all plugins then click ```Download now and install after restart```
 
@@ -141,11 +142,35 @@ For Kind, select ```Username with Password```
 
 Type in your DockerHUB ```Username``` and ```Password```
 
-NOTE: Never check sensitive material into source control!
-
 For ID, type ```dockerhub```
 
+Click ```OK```
+
+NOTE: Never check sensitive material into source control!
+
 ![Screenshot](jenkins-docker-credentials.png)
+
+### G. Add Ansible Credentials ###
+
+Click on ```Manage Jenkins/Manage Credentials/Jenkins/Global credentials (unrestricted)/Add Credentials```
+
+For ```Kind```, select ```SSH Username with private key```
+
+For ```ID```, type ```ansible```
+
+For ```Private Key```, click ```Enter directly```
+
+Run the following command in your Master VM:
+
+    cat ~/.ssh/id_rsa
+
+Click ```Key``` and copy the output from the previous command in the box given to you that says ```Enter New Secret Below```
+
+Click ```OK```
+
+NOTE: Never check sensitive material into source control!
+
+![Screenshot](jenkins-ansible-credentials.png)
 
 
 ## 3. Create a Jenkins Pipeline ##
