@@ -14,7 +14,7 @@
         then
             cd /home/client/2020_03_DO_Boston_casestudy_part_1 && git pull
         else
-            git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git
+            git clone https://github.com/nmm131/2020_03_DO_Boston_casestudy_part_1.git /home/client/2020_03_DO_Boston_casestudy_part_1
         fi
       
     - name: Push configuration changes to cluster
