@@ -60,10 +60,11 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps {
-				// Deploy application using ansible and kubernetes
+				// Deploy application using ansible and kubernetes on Master VM
 				node('master') {
 					script {
-						sh 'ansible-playbook playbook-deploy-app.yaml'
+						sh 'cp ~/.ssh/id_rsa /var/lib/jenkins/.ssh/id_rsa'
+						sh 'ansible-playbook -i /etc/ansible/hosts playbook-deploy-app.yaml --private-key=/var/lib/jenkins/.ssh/id_rsa'
 					}
 				}
 			}
