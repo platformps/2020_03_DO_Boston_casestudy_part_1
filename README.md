@@ -1,80 +1,296 @@
-# 2020 03 DO Boston casestudy part 1
+# Git, Ansible, Jenkins, Docker, Kubernetes DevOps Pipeline #
 
-2020 03 DO Boston casestudy part 1 is a DevOps Pipeline for building, testing and deploying a python flask application.
 
-Its process follows the steps below:
+## 1. Create New VirtualBox Virtual Machines (VMs) ##
+
+Create a Master VM and any number of Client VMs.
+
+![Screenshot](vm-setup.png)
+
+Mount VirtualBox Guest Additions by clicking on the following tab on your VMs:
+
 ```
-1. DevOps install Ansible and VirtualBox on bare metal.
-2. DevOps create a single Master and as many Client Virtual Machines (VMs) as required.
-3. DevOps run Ansible playbook to install Docker and Kubernetes with Jenkins configured as code in a Deployment (with jobs setup) on all client VMs.
-4. Developers use Git to update the Jenkins' job's project on Source Control Management (SCM).
-5. Jenkins (running in Kubernetes Deployment) receives a web-hook or polls SCM every so often to checkout updated SCM.
-6. Jenkins compiles, packages and tests the checked out project.
-7. If compiling, packaging and testing is successful, Jenkins pushes the project's image, newly tagged to DockerHUB.
-8. Jenkins calls Ansible playbook to create another Kubernetes Deployment with the final application running.
-```
-
-## Installation
-
-Download or Clone the repository to your local system using GitHub.com, GitHub Desktop application, Bitbucket.com, GitHub SourceTree application, or .zip
-
-Ensure that the steps to install Ansible are followed: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html or AWX: https://github.com/ansible/awx/blob/devel/INSTALL.md
-
-Ensure that the steps to install VirtualBox are followed: https://www.virtualbox.org/manual/ch02.html
-
-Ensure you setup a Master VM and Client VM(s) (Client VM can be your Master if deploying to localhost/Master's IP Address)
-
-Ensure that the steps to install Jenkins Configuration as Code are followed: https://github.com/nmm131/jcasc
-
-NOTE: VM orchestration can be achieved using Vagrant.
-
-Ensure the setup below exist within Master VM before changing SCM:
-```
-open-ssh
-passwordless sudo
-hosts file
-ansible-hosts file
+Devices/Insert Guest Additions CD image
 ```
 
-Ensure the tools below exist within Client VMs before changing SCM:
+In the new pop-up window, browse your host file system for the VBoxGuestAdditions.iso file then click ```Add```.
+
+Install the mounted VirtualBox Guest Additions by going to the directory:
+ ```/media/VM-Name-Here/VBox_GAs_Version-Here``` 
+
+Ensure you replace "*VM-Name-Here*" with the name of your VM and "*Version-Here*" with your version of Guest Additions CD image in the directory above. Example: ```/media/master/VBox_GAs_6.1.16```
+
+Run the ```VBoxLinuxAdditions.run``` file using the following command:
+
+    sudo ./VBoxLinuxAdditions.run
+
+
+![Screenshot](vm-guest-additions-commandline.png)
+
+Click the following tab on your VMs:
+
 ```
-Docker
-Kubernetes
-Jenkins Configuration as Code (jobs/credentials setup) in Kubernetes Deployment
+View/Adjust Window Size
 ```
 
-## Usage
+Maximize, or scale, your VM window(s).
 
-Made with Git, Ansible, VirtualBox, Kubernetes, Docker, Jenkins Configuration as Code and the SCMs (sources of truth) below:
-```
-1. GitHub
-2. DockerHUB
-```
+![Screenshot](vm-adjust-window-size.png)
 
-2020 03 DO Boston casestudy part 1 is re-runnable. Processing is automated and optimized using:
+(Optional) Enable bi-directional copy and paste use clipboard between host machine and VMs. Click the following tab on your VMs:
+
 ```
-1. Git and DockerHUB repositories
-2. Ansible playbooks and its VMs
-3. Docker and Kubernetes running Jenkins Configuration as Code
-4. Jenkins Poll SCM for its jobs
+Devices/Shared Clipboard/Bidirectional
 ```
 
-More details follow:
+Ensure you are running an up-to-date Operating System (OS). If you are not, follow the on-screen updates/upgrades.
+
+
+## 2. Install Jenkins ##
+
+### A. Install Java: ###
+
+Install OpenJDK 8 on your Master VM by running the following command:
+
+    sudo apt-get install openjdk-8-jdk
+
+### B. Install Docker: ###
+
+Install Docker on your Master VM. Ensure you are following the most up-to-date documentation: [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+
+Installation requires you to run the following commands on your Master VM:
+
+    sudo apt remove docker docker-engine docker.io containerd runc
+    sudo apt update
+    sudo apt install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo apt-key fingerprint 0EBFCD88
+    sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+    sudo apt update
+    sudo apt install docker-ce docker-ce-cli containerd.io
+
+### C. Install Jenkins: ###
+
+Install Jenkins on your Master VM. Ensure you are following the most up-to-date documentation: [https://www.jenkins.io/doc/book/installing/](https://www.jenkins.io/doc/book/installing/)
+
+Installation requires you to run the following commands on your Master VM:
+
+
+    wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+    sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+    /etc/apt/sources.list.d/jenkins.list'
+    sudo apt update
+    sudo apt install jenkins
+
+### D. Modify config.xml: ###
+
+Modify ```/var/lib/jenkins/config.xml``` and edit ```<useSecurity>true</useSecurity>``` to
+```<useSecurity>false</useSecurity>```
+
+![Screenshot](jenkins-disable-useSecurity.png)
+
+Restart Jenkins:
+
+    sudo systemctl restart jenkins
+
+### E. Install Plugins: ###
+
+In your Master VM, open a new tab in a web-browser and open ```http://localhost:8080/```.
+
+NOTE: Port 8080 is the default port for Jenkins. Ensure no other application is accessing Port 8080.
+
+Once Jenkins loads, click ```Install Suggested Plugins```
+
+
+![Screenshot](jenkins-install-suggested-plugins.png)
+
+After all suggested plugins are downloaded successfully, configure Jenkins URL to ```http://localhost:8080/``` and click ```Save and Finish```.
+
+![Screenshot](jenkins-url.png)
+
+Once Jenkins opens the Dashboard, click ```Manage Jenkins/Manage Plugins/Available`` and search for the following:
+
+1. Python
+2. ShiningPanda
+3. Docker
+4. Docker Pipeline
+5. CloudBees Docker Custom Build Environment
+6. Ansible
+
+Ensure you have selected all plugins then click ```Download now and install after restart```
+
+![Screenshot](jenkins-install-plugins.png)
+
+When all plugins have been downloaded successfully, click ```Restart Jenkins when installation is complete and no jobs are running``` then click ```Go back to the top page```
+
+![Screenshot](jenkins-install-plugins-downloaded-successfully.png)
+
+
+### F. Add Docker Credentials ###
+
+Click on ```Manage Jenkins/Manage Credentials/Jenkins/Global credentials (unrestricted)/Add Credentials```
+
+For Kind, select ```Username with Password```
+
+Type in your DockerHUB ```Username``` and ```Password```
+
+For ID, type ```dockerhub```
+
+Click ```OK```
+
+NOTE: Never check sensitive material into source control!
+
+![Screenshot](jenkins-docker-credentials.png)
+
+### G. Add Ansible Credentials ###
+
+Click on ```Manage Jenkins/Manage Credentials/Jenkins/Global credentials (unrestricted)/Add Credentials```
+
+For ```Kind```, select ```SSH Username with private key```
+
+For ```ID```, type ```ansible```
+
+For ```Username```, type ```master```
+
+NOTE: Replace ```master``` with your username which currently exists on the Master VM host.
+
+For ```Private Key```, click ```Enter directly```
+
+Run the following command in your Master VM:
+
+    cat ~/.ssh/id_rsa
+
+Click ```Key``` and copy the output from the previous command in the box given to you that says ```Enter New Secret Below```
+
+Click ```OK```
+
+NOTE: Never check sensitive material into source control!
+
+![Screenshot](jenkins-ansible-credentials.png)
+
+
+## 3. Create a Jenkins Pipeline ##
+
+Go back to the Jenkins Dashboard and click ```New Item / Pipeline``` and give it a name. Then click ```OK```
+
+![Screenshot](jenkins-create-pipeline.png)
+
+Under the General Tab, click ```GitHub Project``` and add your ```Project url```
+![Screenshot](jenkins-gitHubProject.png)
+
+Under **Build Triggers**, click ```Poll SCM``` and set the Schedule as you'd like. To check SCM every minute, type ```* * * * *```
+
+Under **Pipeline**, select ```Pipeline script from SCM``` for ```Definition```
+Select ```Git``` for ```SCM```
+Add your Repository URL
+
+Change ```Branches to build``` to ```*/main```
+
+For ```Additional Behaviors``` click ```Add``` and select ```Clean before checkout```. Click ```Delete untracked nested repositories```
+![Screenshot](jenkins-git-pipeline.png)
+
+At the bottom of the page, click ```Apply```. Shortly after, click ```Save```.
+
+
+## 4. Install Ansible ##
+
+Install Ansible on your Master VM. Ensure you are following the most up-to-date documentation: [https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+
+Installation requires you to run the  following commands on your Master VM:
+
+
+    sudo apt update
+    sudo apt install software-properties-common
+    sudo apt-add-repository --yes --update ppa:ansible/ansible
+    sudo apt install ansible
+
+
+### A. Modify hosts files: ###
+
+Obtain the IP Address(es) of your Client VM(s). Add the IP Address(es) to both of the following hosts files:
+
+
+- /etc/hosts
+- /etc/ansible/hosts
+
+
+![Screenshot](vm-hosts-file.png)
+
+![Screenshot](vm-ansible-hosts-file.png)
+
+NOTE: The Ansible hosts file is called the Inventory.
+
+### B. Configure SSH: ###
+
+Install openssh-server on Client VM:
 ```
-1. Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. 
-2. Ansible is the simplest way to automate apps and IT infrastructure. Application Deployment + Configuration Management + Continuous Delivery.
-3. VirtualBox is a powerful x86 and AMD64/Intel64 virtualization product for enterprise as well as home use.
-4. Docker is an open platform for developing, shipping, and running applications.
-5. Kubernetes, also known as K8s, is an open-source system for automating deployment, scaling, and management of containerized applications.
-6. Jenkins is an open source automation server which enables developers around the world to reliably build, test, and deploy their software.
-7. GitHub is where over 56 million developers shape the future of software, together. 
-8. Docker Hub is the world's easiest way to create, manage, and deliver your teams' container applications. 
+sudo apt install openssh-server
 ```
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Generate a new SSH Key and copy the public key to your Client VM:
 
-Please make sure to update tests as appropriate.
+    ssh-keygen
+    ssh-copy-id client@client-client
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+
+NOTE: Replace ```client@client-client``` with your username and host. In the command above, the right-side of @ is the host, or IP Address. The left-side of @ is the username which currently exists on the host.
+
+### C. Allow Passwordless Sudo: ###
+Execute the following command in your Client VM in order to modify the ```sudoers``` file safely:
+
+    sudo visudo
+
+Add the following line at the bottom of the ```sudoers``` file:
+
+    client ALL=(ALL:ALL) NOPASSWD: ALL
+
+NOTE: Replace ```client``` with the username which currently exists on the host.
+
+![Screenshot](ansible-passwordless-sudo.png)
+
+
+## 5. Install Kubernetes ##
+
+
+
+Install Kubernetes on your Client VM(s). Ensure you are following the most up-to-date documentation: [https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+
+Or use the provided ```playbook-install-kubernetes.yaml```. It requires you to run following command on your Master VM:
+
+    ansible-playbook playbook-install-kubernetes.yaml
+
+![Screenshot](ansible-install-kubernetes.png)
+
+
+## 6. Make a Change to SCM
+
+Modify the project however you like on ```SCM``` using ```git```.
+
+NOTE: Master and Client VMs must be running. Also, Master VM must be running Jenkins with Poll SCM configured.
+
+In your Master VM, open a new tab in a web-browser and open ```http://192.168.49.2:32500/``` to view the change when the pipeline is done.
+
+NOTE: Replace ```192.168.49.2``` with your Client VM's IP Address. Replace ```32500``` with your application's service's nodePort.
+
+## Useful Resources ##
+To help you configure ```Docker```, ```Ansible``` and ```Jenkins``` commands in ```Jenkinsfile```, visit the following URL in your Master VM while Jenkins is running:
+
+> http://localhost:8080/job/git-jenkins-ansible-vb-docker-k8/pipeline-syntax/
+> 
+> sudo chmod 666 /var/run/docker.sock
+
+---
+Challenges:
+
+- Docker & Kubernetes Installation in Playbook
+- Escape every (') with (\) inside multi-line sh (''') in Jenkinsfile
+- Test server with curl in Jenkinsfile
+- Clone/Pull repo in Playbook
