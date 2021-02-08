@@ -285,7 +285,8 @@ To help you configure ```Docker```, ```Ansible``` and ```Jenkins``` commands in 
 
 > http://localhost:8080/job/git-jenkins-ansible-vb-docker-k8/pipeline-syntax/
 
+---
 Challenges:
-Kubernetes Installation in Playbook
-Escape every (') with (\) inside multi-line sh (''') in Jenkinsfile
-Clone/Pull in Playbook Deploy App
+
+- Docker & Kubernetes Installation in Playbook
+- Escape every (') with (\) inside multi-line sh (''') in Jenkinsfile

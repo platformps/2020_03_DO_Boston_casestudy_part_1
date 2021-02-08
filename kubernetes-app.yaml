@@ -10,7 +10,7 @@ metadata:
 # deployment specifications
 spec:
   # set number of replicas
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: app
