@@ -1,0 +1,49 @@
+# set metadata for grepping app's deployment
+apiVersion: apps/v1
+# specify a deployment
+kind: Deployment
+# specify a name and label of deployment
+metadata:
+  name: git-jenkins-ansible-vb-docker-k8
+  labels:
+    app: app
+# deployment specifications
+spec:
+  # set number of replicas
+  replicas: 5
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      # container specifications
+      containers:
+        # set container name
+        - name: front-end
+          # set named container's image
+          image: nmm131/git-jenkins-ansible-vb-docker-k8:latest
+          ports:
+            # set container exposed ports
+            - containerPort: 5000
+---
+# set metadata for grepping app's service
+apiVersion: v1
+# specify a service
+kind: Service
+# specify a name of service
+metadata:
+  name: git-jenkins-ansible-vb-docker-k8-svc
+# specify allocating a port
+spec:
+  type: NodePort
+  selector:
+    app: app
+  # map container port to allocated node's port  
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+    nodePort: 32500
