@@ -5,7 +5,7 @@
 
 Create a Master VM and any number of Client VMs.
 
-![Screenshot](vm-setup.png)
+![Screenshot](documentation/vm-setup.png)
 
 Mount VirtualBox Guest Additions by clicking on the following tab on your VMs:
 
@@ -25,7 +25,7 @@ Run the ```VBoxLinuxAdditions.run``` file using the following command:
     sudo ./VBoxLinuxAdditions.run
 
 
-![Screenshot](vm-guest-additions-commandline.png)
+![Screenshot](documentation/vm-guest-additions-commandline.png)
 
 Click the following tab on your VMs:
 
@@ -35,7 +35,7 @@ View/Adjust Window Size
 
 Maximize, or scale, your VM window(s).
 
-![Screenshot](vm-adjust-window-size.png)
+![Screenshot](documentation/vm-adjust-window-size.png)
 
 (Optional) Enable bi-directional copy and paste use clipboard between host machine and VMs. Click the following tab on your VMs:
 
@@ -95,7 +95,7 @@ Installation requires you to run the following commands on your Master VM:
 Modify ```/var/lib/jenkins/config.xml``` and edit ```<useSecurity>true</useSecurity>``` to
 ```<useSecurity>false</useSecurity>```
 
-![Screenshot](jenkins-disable-useSecurity.png)
+![Screenshot](documentation/jenkins-disable-useSecurity.png)
 
 Restart Jenkins:
 
@@ -110,11 +110,11 @@ NOTE: Port 8080 is the default port for Jenkins. Ensure no other application is 
 Once Jenkins loads, click ```Install Suggested Plugins```
 
 
-![Screenshot](jenkins-install-suggested-plugins.png)
+![Screenshot](documentation/jenkins-install-suggested-plugins.png)
 
 After all suggested plugins are downloaded successfully, configure Jenkins URL to ```http://localhost:8080/``` and click ```Save and Finish```.
 
-![Screenshot](jenkins-url.png)
+![Screenshot](documentation/jenkins-url.png)
 
 Once Jenkins opens the Dashboard, click ```Manage Jenkins/Manage Plugins/Available`` and search for the following:
 
@@ -127,11 +127,11 @@ Once Jenkins opens the Dashboard, click ```Manage Jenkins/Manage Plugins/Availab
 
 Ensure you have selected all plugins then click ```Download now and install after restart```
 
-![Screenshot](jenkins-install-plugins.png)
+![Screenshot](documentation/jenkins-install-plugins.png)
 
 When all plugins have been downloaded successfully, click ```Restart Jenkins when installation is complete and no jobs are running``` then click ```Go back to the top page```
 
-![Screenshot](jenkins-install-plugins-downloaded-successfully.png)
+![Screenshot](documentation/jenkins-install-plugins-downloaded-successfully.png)
 
 
 ### F. Add Docker Credentials ###
@@ -148,7 +148,7 @@ Click ```OK```
 
 NOTE: Never check sensitive material into source control!
 
-![Screenshot](jenkins-docker-credentials.png)
+![Screenshot](documentation/jenkins-docker-credentials.png)
 
 ### G. Add Ansible Credentials ###
 
@@ -174,17 +174,17 @@ Click ```OK```
 
 NOTE: Never check sensitive material into source control!
 
-![Screenshot](jenkins-ansible-credentials.png)
+![Screenshot](documentation/jenkins-ansible-credentials.png)
 
 
 ## 3. Create a Jenkins Pipeline ##
 
 Go back to the Jenkins Dashboard and click ```New Item / Pipeline``` and give it a name. Then click ```OK```
 
-![Screenshot](jenkins-create-pipeline.png)
+![Screenshot](documentation/jenkins-create-pipeline.png)
 
 Under the General Tab, click ```GitHub Project``` and add your ```Project url```
-![Screenshot](jenkins-gitHubProject.png)
+![Screenshot](documentation/jenkins-gitHubProject.png)
 
 Under **Build Triggers**, click ```Poll SCM``` and set the Schedule as you'd like. To check SCM every minute, type ```* * * * *```
 
@@ -195,7 +195,7 @@ Add your Repository URL
 Change ```Branches to build``` to ```*/main```
 
 For ```Additional Behaviors``` click ```Add``` and select ```Clean before checkout```. Click ```Delete untracked nested repositories```
-![Screenshot](jenkins-git-pipeline.png)
+![Screenshot](documentation/jenkins-git-pipeline.png)
 
 At the bottom of the page, click ```Apply```. Shortly after, click ```Save```.
 
@@ -222,9 +222,9 @@ Obtain the IP Address(es) of your Client VM(s). Add the IP Address(es) to both o
 - /etc/ansible/hosts
 
 
-![Screenshot](vm-hosts-file.png)
+![Screenshot](documentation/vm-hosts-file.png)
 
-![Screenshot](vm-ansible-hosts-file.png)
+![Screenshot](documentation/vm-ansible-hosts-file.png)
 
 NOTE: The Ansible hosts file is called the Inventory.
 
@@ -254,7 +254,7 @@ Add the following line at the bottom of the ```sudoers``` file:
 
 NOTE: Replace ```client``` with the username which currently exists on the host.
 
-![Screenshot](ansible-passwordless-sudo.png)
+![Screenshot](documentation/ansible-passwordless-sudo.png)
 
 
 ## 5. Install Kubernetes ##
@@ -267,7 +267,7 @@ Or use the provided ```playbook-install-kubernetes.yaml```. It requires you to r
 
     ansible-playbook playbook-install-kubernetes.yaml
 
-![Screenshot](ansible-install-kubernetes.png)
+![Screenshot](documentation/ansible-install-kubernetes.png)
 
 
 ## 6. Make a Change to SCM
