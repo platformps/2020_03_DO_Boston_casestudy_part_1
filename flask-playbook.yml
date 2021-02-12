@@ -1,0 +1,41 @@
+---
+- hosts: localhost
+
+#Ansile will build the image and push it to docker hub. (Done on host machine)
+
+  tasks:
+
+     - name: remove existing repository
+       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
+
+     - name: pull repository
+       shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
+
+     - name: build image
+       shell: docker image build -t kg0529/flask .
+
+     - name: push image
+       shell: docker push kg0529/flask
+
+- hosts: servers
+
+#Ansible configure target machine from host list "server" through SSH connection
+#clone down the repository and deploy the app using kubernetes by giving it the yaml file
+#original deployment is 3 replicas, later scale it up to 5
+
+  tasks:
+     - name: start up kubernetes cluster
+       shell: minikube start
+       register: output
+
+     - name: remove existing repository
+       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
+
+     - name: pull repository
+       shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
+
+     - name: deploy flask-application  3 relicas
+       shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
+
+     - name: scale up flask-app
+       shell: kubectl scale deployment/flask-deployment --replicas=5

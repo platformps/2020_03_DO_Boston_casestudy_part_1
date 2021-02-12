@@ -1,0 +1,19 @@
+---
+- hosts: servers
+
+  collections:
+     - community.kubernetes
+
+  tasks:
+     - name: start up kubernetes cluster
+       shell: minikube start
+       register: output
+
+     - name: remove existing repository
+       shell: rm -rf 2020_03_DO_Boston_casestudy_part_1
+
+     - name: pull repository
+       shell: git clone https://github.com/kg0529/2020_03_DO_Boston_casestudy_part_1.git
+
+     - name: deploy flask-application
+       shell: kubectl apply -f ~/2020_03_DO_Boston_casestudy_part_1/kubernetes.yml
