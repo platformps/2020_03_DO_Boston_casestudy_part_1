@@ -293,4 +293,3 @@ Challenges:
 - Docker & Kubernetes Installation in Playbook
 - Escape every (') with (\) inside multi-line sh (''') in Jenkinsfile
 - Test server with curl in Jenkinsfile
-- Clone/Pull repo in Playbook
